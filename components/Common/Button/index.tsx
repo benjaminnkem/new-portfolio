@@ -26,7 +26,7 @@ const Button: FC<Props> = (props) => {
     disabled = false,
     loading = false,
     iconPosition = "right",
-    rounded = "lg",
+    rounded = "sm",
     fullWidth = false,
     children,
     ...rest
@@ -41,7 +41,7 @@ const Button: FC<Props> = (props) => {
       break;
     case "outline":
       mainClass +=
-        "bg-transparent border border-zinc-500/50 hover:border-green text-green disabled:border-zinc-500/50 ";
+        "bg-transparent border border-zinc-500/50 hover:border-green text-zinc-500/90 disabled:border-zinc-500/50 ";
       break;
     case "destructive":
       mainClass +=
