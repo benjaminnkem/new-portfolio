@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../public/globals.css";
 import { dmSans } from "@/lib/utils/fonts";
+import Providers from "@/lib/providers";
 
 export const metadata: Metadata = {
   title: "Benjamin Nkem",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${dmSans.className} dark:bg-black-main text-gray-100`}>{children}</body>
+      <body className={`${dmSans.className} dark:bg-black-main text-cWhite`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
