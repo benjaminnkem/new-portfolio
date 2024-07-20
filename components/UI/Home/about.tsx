@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/Common/Button";
-import { higuen } from "@/lib/utils/fonts";
+import { higuen, montserrat } from "@/lib/utils/fonts";
 import { PiCubeDuotone } from "react-icons/pi";
 
 const AboutMe = () => {
@@ -22,7 +22,7 @@ const AboutMe = () => {
 
         <div className="space-y-40 pt-10">
           <PiCubeDuotone className="ml-auto opacity-60" size={100} />
-          <div className="space-y-1">
+          <div className="space-y-4">
             <p className="text-gray-300">
               Hi, I&apos;m Benjamin Nkem Tochi, a web developer with a keen understanding of the relationship between
               design and users. I specialize in delivering detailed execution and optimal user experiences. I&apos;m
@@ -30,6 +30,29 @@ const AboutMe = () => {
               create clean, pixel-perfect interfaces with smooth animations. I prioritize not only writing quality code
               but also ensuring perfect graphic design and optimized development.
             </p>
+            <div className={`flex gap-4 items-center ${montserrat.className}`}>
+              <div className="space-y-1 text-center">
+                <div className="flex items-center justify-center text-4xl">
+                  <p>312</p>
+                  <p className="text-green">+</p>
+                </div>
+                <p className="opacity-50 text-xs">Projects Complete</p>
+              </div>
+              <div className="space-y-1 text-center">
+                <div className="flex items-center justify-center text-4xl">
+                  <p>280</p>
+                  <p className="text-green">+</p>
+                </div>
+                <p className="opacity-50 text-xs">Happy Client</p>
+              </div>
+              <div className="space-y-1 text-center">
+                <div className="flex items-center justify-center text-4xl">
+                  <p>4</p>
+                  <p className="text-green">+</p>
+                </div>
+                <p className="opacity-50 text-xs">Years of experience</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
