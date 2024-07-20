@@ -13,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={dmSans.className}>{children}</body>
+    <html lang="en" className="dark">
+      <body className={`${dmSans.className} dark:bg-black-main text-gray-100`}>{children}</body>
     </html>
   );
 }

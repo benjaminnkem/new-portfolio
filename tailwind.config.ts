@@ -13,7 +13,12 @@ const config: Config = {
         center: true,
         padding: "1rem",
       },
-      colors: {},
+      colors: {
+        "black-main": "#07090F",
+        primary: "#772D8B",
+        cPink: "#FFE2D1",
+        cGreen: "#156064",
+      },
     },
   },
   plugins: [],
