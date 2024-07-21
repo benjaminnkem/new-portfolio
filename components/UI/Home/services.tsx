@@ -2,7 +2,7 @@ import { PiCubeDuotone } from "react-icons/pi";
 
 const Services = () => {
   return (
-    <section className="space-y-20 relative">
+    <section className="space-y-20 relative pb-20">
       <PiCubeDuotone className="opacity-50 absolute top-0 right-10 rotate-12" size={140} />
       <PiCubeDuotone className="opacity-30 absolute top-15 right-52 -rotate-6" size={50} />
 
