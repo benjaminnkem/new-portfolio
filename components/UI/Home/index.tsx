@@ -15,8 +15,6 @@ const Home = () => {
         <Stripes />
         <Services />
         <Projects />
-
-        <div className="h-screen"></div>
       </main>
     </>
   );
