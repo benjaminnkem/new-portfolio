@@ -7,7 +7,7 @@ const Stripes = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
-    offset: ["start end", "start start"],
+    offset: ["start end", "end start"],
     target: ref,
   });
 
@@ -20,7 +20,7 @@ const Stripes = () => {
 };
 
 const StripesContainer = ({ y }: { y: MotionValue<number> }) => {
-  const value = useTransform(y, [0, 1], [-300, 0]);
+  const value = useTransform(y, [0, 1], [-500, 0]);
   const position = useSpring(value);
 
   return (
@@ -45,7 +45,7 @@ const StripesContainer = ({ y }: { y: MotionValue<number> }) => {
 };
 
 const Stripes2Container = ({ y }: { y: MotionValue<number> }) => {
-  const value = useTransform(y, [0, 1], [300, 0]);
+  const value = useTransform(y, [0, 1], [600, 0]);
   const position = useSpring(value);
 
   return (
