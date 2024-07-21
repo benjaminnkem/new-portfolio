@@ -32,7 +32,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <HiOutlineMenuAlt4 className="cursor-pointer" size={30} />
+        <HiOutlineMenuAlt4 className="m-over" size={30} />
       </div>
     </nav>
   );

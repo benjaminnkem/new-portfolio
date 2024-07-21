@@ -2,6 +2,7 @@
 
 import AboutMe from "./about";
 import Hero from "./hero";
+import Stripes from "./stripes";
 
 const Home = () => {
   return (
@@ -9,6 +10,9 @@ const Home = () => {
       <Hero />
       <main>
         <AboutMe />
+        <Stripes />
+
+        <div className="h-screen"></div>
       </main>
     </>
   );

@@ -49,7 +49,7 @@ body {
 }
 
 * {
-  /* cursor: none; */
+  cursor: none;
   /* pointer-events: none; */
 }
 
