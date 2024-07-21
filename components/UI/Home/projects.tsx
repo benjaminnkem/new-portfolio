@@ -19,17 +19,18 @@ const Projects = () => {
 
   const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
   const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
-  const scale7 = useTransform(scrollYProgress, [0, 1], [1, 7]);
+  const scale7 = useTransform(scrollYProgress, [0, 1], [1, 6.8]);
   const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
-  const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
-  const scale10 = useTransform(scrollYProgress, [0, 1], [1, 10]);
+  const scale9 = useTransform(scrollYProgress, [0, 1], [1, 8.5]);
+  const scale10 = useTransform(scrollYProgress, [0, 1], [1, 9]);
 
   return (
     <section className="pt-20 bg-[#0b0b0b]">
       <div className="space-y-2 container">
         <p className="text-green">Projects</p>
         <p className={`text-4xl font-medium`}>
-          Some of the projects <br /> I have worked on<span className="text-green">.</span>
+          <span className="text-green">Dive</span> into some of the projects <br /> I have worked on
+          <span className="text-green">.</span>
         </p>
       </div>
 
@@ -40,7 +41,7 @@ const Projects = () => {
             style={{ scale: scale4 }}
             className="absolute top-0 w-full h-full flex items-center justify-center"
           >
-            <div className="w-[25vw] h-[25vh] rounded-md overflow-hidden relative">
+            <div className="w-[25vw] h-[25vh] rounded-md overflow-hidden relative text-center">
               <Image src={BdMeds} alt="image" className="object-cover" fill placeholder="blur" />
             </div>
           </motion.div>
