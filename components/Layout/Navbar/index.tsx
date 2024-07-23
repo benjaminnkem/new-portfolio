@@ -24,7 +24,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-[4000] duration-300 ${passed ? "opacity-0" : ""}`}>
+    <nav className={`fixed top-0 left-0 w-full z-[2000] duration-300 ${passed ? "opacity-0" : ""}`}>
       <div className="container flex items-center justify-between py-4">
         <div className="">
           <Link href="/" className={`text-xl font-extrabold ${higuen.className}`}>

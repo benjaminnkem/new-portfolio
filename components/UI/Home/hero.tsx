@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@/components/Common/Button";
 import { higuen } from "@/lib/utils/fonts";
 
 const Hero = () => {
@@ -9,7 +8,7 @@ const Hero = () => {
       <div className="container min-h-screen grid gap-4 relative">
         <div className="flex items-center">
           <div className="space-y-8">
-            <h1 className={`${higuen.className} text-9xl tracking-wider font-medium`}>
+            <h1 className={`${higuen.className} lg:text-9xl md:text-8xl text-5xl tracking-wider font-medium`}>
               Fullstack <br /> Developer
             </h1>
 
