@@ -20,3 +20,20 @@ export const useTheme = create<ThemeStore>()(
     { name: "theme" }
   )
 );
+
+type GlobalStoreState = {
+  isMenuOpen: boolean;
+};
+
+type GlobalStoreActions = {
+  updateIsMenuOpen: (state: boolean) => void;
+};
+
+type GlobalStore = GlobalStoreState & GlobalStoreActions;
+
+const useStore = create<GlobalStore>((set) => ({
+  isMenuOpen: false,
+  updateIsMenuOpen: (newState) => set((state) => ({ ...state, isMenuOpen: newState })),
+}));
+
+export default useStore;
