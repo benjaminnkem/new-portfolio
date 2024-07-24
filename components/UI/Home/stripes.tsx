@@ -45,7 +45,7 @@ const StripesContainer = ({ y }: { y: MotionValue<number> }) => {
 };
 
 const Stripes2Container = ({ y }: { y: MotionValue<number> }) => {
-  const value = useTransform(y, [0, 1], [500, -1200]);
+  const value = useTransform(y, [0, 1], [-600, -1200]);
   const position = useSpring(value);
 
   return (
