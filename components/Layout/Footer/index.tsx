@@ -31,8 +31,8 @@ const socials: { link: string; icon: JSX.Element }[] = [
 
 const Footer = () => {
   return (
-    <footer>
-      <svg
+    <footer className="pt-8">
+      {/* <svg
         id="visual"
         viewBox="0 0 1920 300"
         width="1920"
@@ -46,7 +46,7 @@ const Footer = () => {
           stroke-linecap="square"
           stroke-linejoin="miter"
         ></path>
-      </svg>
+      </svg> */}
 
       <div className="h-[5rem] bg-green text-black-main">
         <div className="flex items-center justify-between container">
