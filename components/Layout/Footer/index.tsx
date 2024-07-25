@@ -31,7 +31,7 @@ const socials: { link: string; icon: JSX.Element }[] = [
 
 const Footer = () => {
   return (
-    <footer className="pt-8">
+    <footer>
       {/* <svg
         id="visual"
         viewBox="0 0 1920 300"
@@ -48,7 +48,7 @@ const Footer = () => {
         ></path>
       </svg> */}
 
-      <div className="h-[5rem] bg-green text-black-main">
+      <div className="h-[5rem] flex items-center bg-green text-black-main">
         <div className="flex items-center justify-between container">
           <div className="flex items-center gap-3">
             <div className="size-9 rounded-full m-over bg-black-main text-green flex items-center justify-center font-semibold">
