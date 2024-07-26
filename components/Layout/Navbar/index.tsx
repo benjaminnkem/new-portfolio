@@ -24,6 +24,7 @@ const Navbar = () => {
   const closeMenu = () => {
     updateIsMenuOpen(false);
   };
+  const toggle = () => updateIsMenuOpen(!isMenuOpen);
 
   useEffect(() => {
     let prev = window.scrollY;
@@ -54,7 +55,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <HiOutlineMenuAlt4 className="m-over" size={30} onClick={openMenu} />
+          <HiOutlineMenuAlt4 className="m-over" size={30} onClick={toggle} />
         </div>
       </nav>
 
