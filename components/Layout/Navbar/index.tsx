@@ -55,16 +55,17 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <HiOutlineMenuAlt4 className="m-over" size={30} onClick={toggle} />
+          {isMenuOpen && <IoCloseOutline className="m-over" size={30} onClick={closeMenu} />}
+          {!isMenuOpen ? <HiOutlineMenuAlt4 className="m-over" size={30} onClick={openMenu} /> : <p>something</p>}
         </div>
       </nav>
 
-      {/* <aside
+      <aside
         id="menu-container"
         className={`fixed top-0 right-0 overflow-hidden z-[1000] min-h-screen duration-300 backdrop-blur-md ${
           isMenuOpen ? "w-3/4" : "w-0"
         }`}
-      ></aside> */}
+      ></aside>
     </div>
   );
 };
