@@ -1,72 +1,117 @@
 "use client";
 
-import { higuen } from "@/lib/utils/fonts";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { HiOutlineMenuAlt4 } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { AnimatePresence, motion } from "framer-motion";
 import useStore from "@/lib/store/global.store";
-import { opacityVariant } from "@/lib/utils/variants";
+import { higuen } from "@/lib/utils/fonts";
 
 const Navbar = () => {
-  const [passed, setPassed] = useState(false);
-
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const { isMenuOpen, updateIsMenuOpen } = useStore();
 
-  const openMenu = () => {
-    updateIsMenuOpen(true);
-  };
-  const closeMenu = () => {
-    updateIsMenuOpen(false);
-  };
-  const toggle = () => updateIsMenuOpen(!isMenuOpen);
-
   useEffect(() => {
-    let prev = window.scrollY;
-    window.addEventListener("scroll", () => {
-      const current = window.scrollY;
+    if (!overlayRef.current) return;
 
-      if (current > prev) {
-        setPassed(true);
-      } else {
-        setPassed(false);
-      }
+    if (isMenuOpen) {
+      gsap.to(overlayRef.current, {
+        opacity: 1,
+        pointerEvents: "auto",
+        duration: 0.3,
+        ease: "power2.out",
+      });
 
-      prev = window.scrollY;
-    });
-  }, []);
+      gsap.to(menuRef.current, {
+        x: 0,
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        pointerEvents: "none",
+        duration: 0.3,
+        ease: "power2.inOut",
+      });
+
+      gsap.to(menuRef.current, {
+        x: "100%",
+        duration: 0.5,
+        ease: "power3.inOut",
+      });
+    }
+  }, [isMenuOpen]);
 
   return (
-    <div ref={menuRef}>
-      <nav
-        className={`fixed top-0 left-0 z-[500] duration-300 ${passed ? "opacity-0" : ""} ${
-          isMenuOpen ? "w-1/2" : "w-full"
-        }`}
-      >
-        <div className="container flex items-center justify-between py-4">
-          <div className="">
-            <Link href="/" className={`text-xl font-extrabold ${higuen.className}`}>
-              BN<span className="text-green">.</span>
+    <>
+      <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[600]">
+        <div className="flex items-center gap-8 px-6 py-3 rounded-full bg-gray-shade/70 backdrop-blur-md border border-white/10">
+          <Link href="/" className={`font-bold ${higuen.className}`}>
+            BN<span className="text-green">.</span>
+          </Link>
+
+          <div className="hidden md:flex items-center gap-6 text-sm text-cWhite/80">
+            <Link href="#about" className="hover:text-green transition-colors">
+              About
+            </Link>
+            <Link
+              href="#services"
+              className="hover:text-green transition-colors"
+            >
+              Services
+            </Link>
+            <Link
+              href="#projects"
+              className="hover:text-green transition-colors"
+            >
+              Projects
             </Link>
           </div>
 
-          {isMenuOpen && <IoCloseOutline className="m-over" size={30} onClick={closeMenu} />}
-          {!isMenuOpen ? <HiOutlineMenuAlt4 className="m-over" size={30} onClick={openMenu} /> : <p>something</p>}
+          <div className="flex items-center gap-4">
+            <button onClick={() => updateIsMenuOpen(!isMenuOpen)}>
+              {!isMenuOpen ? (
+                <HiOutlineMenuAlt4 size={24} />
+              ) : (
+                <IoCloseOutline size={26} />
+              )}
+            </button>
+          </div>
         </div>
-      </nav>
+      </div>
 
-      <aside
-        id="menu-container"
-        className={`fixed top-0 right-0 overflow-hidden z-[1000] min-h-screen duration-300 backdrop-blur-md ${
-          isMenuOpen ? "w-3/4" : "w-0"
-        }`}
-      ></aside>
-    </div>
+      <div
+        ref={overlayRef}
+        className="fixed inset-0 z-[1000] bg-black-main/80 backdrop-blur-md opacity-0 pointer-events-none"
+      />
+
+      <div
+        ref={menuRef}
+        className="fixed top-0 right-0 z-[1100] h-full w-full md:w-[60%] bg-gray-shade translate-x-full"
+      >
+        <div className="container py-24 flex flex-col gap-8 text-3xl font-semibold">
+          <Link href="/" onClick={() => updateIsMenuOpen(false)}>
+            Home
+          </Link>
+          <Link href="#about" onClick={() => updateIsMenuOpen(false)}>
+            About
+          </Link>
+          <Link href="#services" onClick={() => updateIsMenuOpen(false)}>
+            Services
+          </Link>
+          <Link href="#projects" onClick={() => updateIsMenuOpen(false)}>
+            Projects
+          </Link>
+          <Link href="#contact" onClick={() => updateIsMenuOpen(false)}>
+            Contact
+          </Link>
+        </div>
+      </div>
+    </>
   );
 };
 

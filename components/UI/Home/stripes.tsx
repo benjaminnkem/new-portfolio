@@ -1,67 +1,60 @@
 "use client";
+
 import { skills, skills2 } from "@/lib/data";
-import { useTransform, useScroll, MotionValue, motion, useSpring } from "framer-motion";
+import { cn } from "@/lib/utils/ace";
+import { useTransform, useScroll, motion, useSpring } from "framer-motion";
 import { useRef } from "react";
 
 const Stripes = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
-    offset: ["start end", "end start"],
     target: ref,
+    offset: ["start end", "end start"],
   });
 
   return (
-    <div className="py-40 relative uppercase" ref={ref}>
-      <StripesContainer y={scrollYProgress} />
-      <Stripes2Container y={scrollYProgress} />
+    <div ref={ref} className="py-32 relative overflow-hidden">
+      <StripeRow
+        y={scrollYProgress}
+        items={skills}
+        direction={1}
+        base="-rotate-2 bg-green text-black"
+      />
+      <StripeRow
+        y={scrollYProgress}
+        items={skills2}
+        direction={-1}
+        base="rotate-2 bg-black-main text-green border-y border-green/20 mt-10"
+      />
     </div>
   );
 };
 
-const StripesContainer = ({ y }: { y: MotionValue<number> }) => {
-  const value = useTransform(y, [0, 1], [-600, 0]);
-  const position = useSpring(value);
+const StripeRow = ({
+  y,
+  items,
+  direction,
+  base,
+}: {
+  y: any;
+  items: string[];
+  direction: number;
+  base: string;
+}) => {
+  const x = useTransform(y, [0, 1], [direction * -300, direction * 300]);
+  const springX = useSpring(x, { stiffness: 60, damping: 20 });
 
   return (
-    <div
-      className={`py-4 bg-[#529200] text-black-main -rotate-[4deg] w-[calc(200%)] -translate-x-[10%] relative before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:w-40 before:bg-gradient-to-r before:from-black-main after:content-[''] after:absolute after:top-0 after:right-0 after:h-full after:w-40 after:bg-gradient-to-l after:from-black-main text-3xl`}
-    >
+    <div className={cn(`w-[200%] py-5 whitespace-nowrap`, base)}>
       <motion.div
-        style={{ translateX: position }}
-        className="w-full flex items-center space-x-5 overflow-x-auto whitespace-nowrap font-extrabold hide-scroll"
+        style={{ x: springX }}
+        className="flex items-center gap-10 font-semibold text-sm md:text-base uppercase tracking-wider"
       >
-        {[...skills, ...skills].map((skill, index) => (
-          <div key={index}>
-            <div className="flex items-center gap-5">
-              <p>{skill}</p>
-              <div className="size-2 bg-black-main rounded-full"></div>
-            </div>
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
-
-const Stripes2Container = ({ y }: { y: MotionValue<number> }) => {
-  const value = useTransform(y, [0, 1], [-600, -1200]);
-  const position = useSpring(value);
-
-  return (
-    <div
-      className={`py-4 bg-green text-black-main rotate-[4deg] w-[calc(200%)] -translate-x-[10%] relative before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:w-40 before:bg-gradient-to-r before:from-black-main after:content-[''] after:absolute after:top-0 after:right-0 after:h-full after:w-40 after:bg-gradient-to-l after:from-black-main text-3xl`}
-    >
-      <motion.div
-        style={{ translateX: position }}
-        className="w-full flex items-center space-x-5 overflow-x-auto whitespace-nowrap font-extrabold hide-scroll"
-      >
-        {[...skills2, ...skills2].map((skill, index) => (
-          <div key={index}>
-            <div className="flex items-center gap-5">
-              <p>{skill}</p>
-              <div className="size-2 bg-black-main rounded-full"></div>
-            </div>
+        {[...items, ...items].map((item, i) => (
+          <div key={i} className="flex items-center gap-3">
+            <span>{item}</span>
+            <span className="size-1.5 rounded-full bg-current opacity-60" />
           </div>
         ))}
       </motion.div>
@@ -70,3 +63,104 @@ const Stripes2Container = ({ y }: { y: MotionValue<number> }) => {
 };
 
 export default Stripes;
+
+/**
+ * "use client";
+
+import { skills, skills2 } from "@/lib/data";
+import { cn } from "@/lib/utils/ace";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useRef } from "react";
+
+const Stripes = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  return (
+    <section
+      ref={ref}
+      className="relative py-40 overflow-hidden flex items-center justify-center"
+    >
+      <div className="relative w-full">
+        <StripeRow
+          y={scrollYProgress}
+          items={skills}
+          rotate="-12"
+          bg="bg-green"
+          text="text-black-main"
+          direction={1}
+          offset="-20%"
+          z="z-20"
+        />
+
+        <StripeRow
+          y={scrollYProgress}
+          items={skills2}
+          rotate="12"
+          bg="bg-black-main"
+          text="text-green"
+          direction={-1}
+          offset="20%"
+          border="border-y border-green/20"
+          z="z-10"
+        />
+      </div>
+    </section>
+  );
+};
+
+const StripeRow = ({
+  y,
+  items,
+  rotate,
+  bg,
+  text,
+  direction,
+  offset,
+  border,
+  z,
+}: {
+  y: any;
+  items: string[];
+  rotate: string;
+  bg: string;
+  text: string;
+  direction: number;
+  offset: string;
+  border?: string;
+  z: string;
+}) => {
+  const x = useTransform(y, [0, 1], [direction * -250, direction * 250]);
+  const springX = useSpring(x, { stiffness: 70, damping: 22 });
+
+  return (
+    <div
+      className={cn(
+        `absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] py-5 ${bg} ${text} ${border} ${z}`,
+      )}
+      style={{
+        transform: `translate(-50%, -50%) rotate(${rotate}deg) translateY(${offset})`,
+      }}
+    >
+      <motion.div
+        style={{ x: springX }}
+        className="flex items-center gap-10 whitespace-nowrap font-semibold uppercase tracking-wider text-sm md:text-base"
+      >
+        {[...items, ...items].map((item, i) => (
+          <div key={i} className="flex items-center gap-3">
+            <span>{item}</span>
+            <span className="size-1 rounded-full bg-current opacity-60" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+export default Stripes;
+
+ */
