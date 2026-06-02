@@ -92,7 +92,7 @@ const Services = () => {
 
         <div className="pt-40 text-center">
           <p className="text-cWhite/40 uppercase tracking-[0.3em] text-sm">
-            Let's Build Something Great
+            Let&apos;s Build Something Great
           </p>
 
           <h3
