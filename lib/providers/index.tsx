@@ -8,7 +8,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <SmoothScroll />
-      <Cursor />
+      {/* <Cursor /> */}
       {children}
     </>
   );

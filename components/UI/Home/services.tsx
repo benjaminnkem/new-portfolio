@@ -1,82 +1,105 @@
-import { PiCubeDuotone } from "react-icons/pi";
+"use client";
+
+import { higuen } from "@/lib/utils/fonts";
+
+const services = [
+  {
+    number: "01",
+    title: "Project Planning",
+    description:
+      "Turning ideas into structured products through technical discovery, architecture planning, database design, and execution strategy.",
+    items: [
+      "Product Strategy",
+      "System Architecture",
+      "Database Design",
+      "Project Management",
+    ],
+  },
+  {
+    number: "02",
+    title: "Development",
+    description:
+      "Building scalable web applications with clean architecture, maintainable code, and a strong focus on performance and user experience.",
+    items: [
+      "Frontend Development",
+      "Backend Development",
+      "Fullstack Development",
+      "API Design",
+      "Deployment",
+    ],
+  },
+];
 
 const Services = () => {
   return (
-    <section className="space-y-20 relative pb-20">
-      <PiCubeDuotone
-        className="opacity-50 absolute top-0 right-10 rotate-12"
-        size={140}
-      />
-      <PiCubeDuotone
-        className="opacity-30 absolute top-15 right-52 -rotate-6"
-        size={50}
-      />
+    <section id="services" className="py-40">
+      <div className="container">
+        <div className="text-center mb-32">
+          <p className="text-green uppercase tracking-[0.3em] text-sm">
+            How I Work
+          </p>
 
-      <div className="space-y-4 text-center">
-        <p className="text-green">Services</p>
-        <p className={`text-4xl font-medium`}>
-          Available Services that <br /> I can work on
-        </p>
-      </div>
-
-      <div className="container space-y-8">
-        <p className="text-3xl">
-          <span className="text-green">01.</span> Project Planning
-        </p>
-
-        <p className="text-gray-300 max-w-[40rem] ml-auto text-sm opacity-80 leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod libero
-          veritatis eveniet laudantium magnam, voluptatem dicta adipisci itaque
-          explicabo quia tenetur, quaerat temporibus quisquam iusto aliquam
-          doloremque mollitia, maiores commodi?
-        </p>
-
-        <div className="grid grid-cols-5 text-center">
-          {["Design", "Database Design", "Project Management", "", ""].map(
-            (_, index) => (
-              <div
-                key={index}
-                className="py-16 border border-white/40 flex items-center text-white/70 justify-center"
-              >
-                <p className="max-w-[10rem] mx-auto font-medium">{_}</p>
-              </div>
-            ),
-          )}
+          <h2
+            className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl mt-6`}
+          >
+            From Idea <br /> To Production
+          </h2>
         </div>
-      </div>
 
-      <div className="container space-y-8">
-        <p className="text-3xl">
-          <span className="text-green">02.</span> Development
-        </p>
-
-        <p className="text-gray-300 max-w-[40rem] ml-auto text-sm opacity-80 leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod libero
-          veritatis eveniet laudantium magnam, voluptatem dicta adipisci itaque
-          explicabo quia tenetur, quaerat temporibus quisquam iusto aliquam
-          doloremque mollitia, maiores commodi?
-        </p>
-
-        <div className="grid grid-cols-5 text-center relative">
-          <PiCubeDuotone
-            className="opacity-30 absolute -top-20 left-0 -rotate-12"
-            size={50}
-          />
-
-          {[
-            "Frontend Development",
-            "Backend Development",
-            "Fullstack Development",
-            "S.E.O",
-            "Deployment",
-          ].map((_, index) => (
+        <div className="space-y-40">
+          {services.map((service) => (
             <div
-              key={index}
-              className="py-16 border border-white/40 flex items-center text-white/70 justify-center"
+              key={service.number}
+              className="grid lg:grid-cols-2 gap-20 min-h-screen border-t border-white/10"
             >
-              <p className="max-w-[10rem] mx-auto font-medium">{_}</p>
+              <div className="lg:sticky lg:top-32 h-fit pt-20">
+                <p
+                  className={`${higuen.className} text-[8rem] md:text-[12rem] leading-none text-green/10`}
+                >
+                  {service.number}
+                </p>
+
+                <h3 className="text-4xl md:text-5xl font-medium -mt-6">
+                  {service.title}
+                </h3>
+
+                <p className="mt-8 text-cWhite/60 max-w-lg leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
+
+              <div className="flex items-center">
+                <div className="w-full py-20 space-y-5">
+                  {service.items.map((item) => (
+                    <div
+                      key={item}
+                      className="group border border-white/10 hover:border-green duration-300 p-8 md:p-10"
+                    >
+                      <div className="flex items-center justify-between">
+                        <p className="text-xl md:text-2xl">{item}</p>
+
+                        <span className="text-green text-2xl translate-x-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 duration-300">
+                          →
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
+        </div>
+
+        <div className="pt-40 text-center">
+          <p className="text-cWhite/40 uppercase tracking-[0.3em] text-sm">
+            Let's Build Something Great
+          </p>
+
+          <h3
+            className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl mt-6`}
+          >
+            Ready To Work <br /> Together?
+          </h3>
         </div>
       </div>
     </section>
