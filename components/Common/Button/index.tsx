@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
 import classNames from "classnames";
 import { LuLoader2 } from "react-icons/lu";
 import { dmSans } from "@/lib/utils/fonts";
@@ -8,7 +8,7 @@ type Props = {
   variant?: "filled" | "outline" | "black" | "destructive" | "success";
   className?: string;
   rounded?: "full" | "sm" | "md" | "lg" | "xl" | "2xl" | "none";
-  icon?: JSX.Element;
+  icon?: ReactNode;
   iconPosition?: "right" | "left";
   disabled?: boolean;
   fullWidth?: boolean;

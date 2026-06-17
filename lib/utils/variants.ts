@@ -15,7 +15,7 @@ export const opacityVariant: Variants = {
   exit: { opacity: 0 },
 };
 
-export const stiffTransition = { type: "spring", stiffness: 200, damping: 30 };
+export const stiffTransition = { type: "spring", stiffness: 200, damping: 30 } as const;
 
 export const fadeToTopVariant: Variants = {
   initial: { opacity: 0, y: "10%" },

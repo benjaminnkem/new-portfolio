@@ -110,7 +110,7 @@ const AboutMe = () => {
 
           <div className="space-y-2">
             <div className="text-4xl font-semibold flex items-center gap-1">
-              4 <span className="text-green">+</span>
+              6 <span className="text-green">+</span>
             </div>
             <p className="text-sm text-cWhite/50">Years Experience</p>
           </div>

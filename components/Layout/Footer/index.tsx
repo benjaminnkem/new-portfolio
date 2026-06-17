@@ -5,8 +5,9 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import { higuen } from "@/lib/utils/fonts";
+import React from "react";
 
-const socials: { link: string; icon: JSX.Element }[] = [
+const socials: { link: string; icon: React.ReactNode }[] = [
   {
     link: "https://www.github.com/",
     icon: <FaGithub className="text-black-main" size={20} />,

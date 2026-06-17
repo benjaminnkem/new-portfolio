@@ -48,9 +48,8 @@ body {
   }
 }
 
-* {
-  cursor: none;
-  /* pointer-events: none; */
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 .hide-scroll::-webkit-scrollbar {
@@ -83,11 +82,11 @@ body {
   pointer-events: none;
   mix-blend-mode: difference;
   background-color: #fff;
-  transition: transform 350ms ease;
+  transition: scale 350ms ease;
 }
 
 .custom-cursor--link {
-  transform: scale(2);
+  scale: 3;
 }
 
 .blend {
