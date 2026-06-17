@@ -128,7 +128,7 @@ const Services = () => {
           ))}
         </div>
 
-        <div className="pt-40 text-center flex flex-col items-center gap-10">
+        {/* <div className="pt-40 text-center flex flex-col items-center gap-10">
           <div className="space-y-6">
             <p className="text-cWhite/40 uppercase tracking-[0.3em] text-sm">
               Let's Build Something Great
@@ -154,7 +154,7 @@ const Services = () => {
               Get In Touch →
             </Button>
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   );

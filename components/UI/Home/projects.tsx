@@ -13,6 +13,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { higuen } from "@/lib/utils/fonts";
+import Button from "@/components/Common/Button";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,84 +67,92 @@ const Projects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const cards = gsap.utils.toArray<HTMLElement>(".project-card");
-    if (!cards.length) return;
+  useGSAP(
+    () => {
+      const cards = gsap.utils.toArray<HTMLElement>(".project-card");
+      if (!cards.length) return;
 
-    // Immersion: Pinned ScrollTrigger timeline
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: triggerRef.current,
-        start: "top top",
-        end: `+=${cards.length * 150}%`, // scroll track scale matches project length dynamically
-        scrub: 1.2,
-        pin: true,
-      },
-    });
-
-    cards.forEach((card, idx) => {
-      const isLeft = idx % 2 === 0;
-      // Parallax pass-by variables: odd ones fly left, even ones fly right
-      const xStart = 0;
-      const xEnd = isLeft ? "-120vw" : "120vw";
-      const yEnd = "30vh"; // push down slightly as they pass the camera for dynamic depth
-
-      // We animate cards:
-      // 1. Zooming in from the distant horizon (from scale 0.05, opacity 0, to scale 1, opacity 1)
-      // 2. Staying fully visible/active in the center
-      // 3. Zooming past the camera (to scale 4.5, opacity 0, offset xEnd)
-      tl.fromTo(
-        card,
-        {
-          scale: 0.05,
-          x: xStart,
-          y: 0,
-          z: -1000,
-          opacity: 0,
-          visibility: "hidden",
-          pointerEvents: "none",
+      // Immersion: Pinned ScrollTrigger timeline
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: `+=${cards.length * 150}%`, // scroll track scale matches project length dynamically
+          scrub: 1.2,
+          pin: true,
         },
-        {
-          scale: 1,
-          x: 0,
-          y: 0,
-          z: 0,
-          opacity: 1,
-          visibility: "visible",
-          pointerEvents: "auto",
-          duration: 1,
-          ease: "power2.out",
-        },
-        idx * 0.75 // enter overlap ratio creates continuous highway flow
-      ).to(
-        card,
-        {
-          scale: 4.5,
-          x: xEnd,
-          y: yEnd,
-          z: 500,
-          opacity: 0,
-          pointerEvents: "none",
-          duration: 1.2,
-          ease: "power2.in",
-          // Set to hidden at the end of zoom to avoid blocking layout
-          onComplete: () => {
-            gsap.set(card, { visibility: "hidden" });
+      });
+
+      cards.forEach((card, idx) => {
+        const isLeft = idx % 2 === 0;
+        // Parallax pass-by variables: odd ones fly left, even ones fly right
+        const xStart = 0;
+        const xEnd = isLeft ? "-120vw" : "120vw";
+        const yEnd = "30vh"; // push down slightly as they pass the camera for dynamic depth
+
+        // We animate cards:
+        // 1. Zooming in from the distant horizon (from scale 0.05, opacity 0, to scale 1, opacity 1)
+        // 2. Staying fully visible/active in the center
+        // 3. Zooming past the camera (to scale 4.5, opacity 0, offset xEnd)
+        tl.fromTo(
+          card,
+          {
+            scale: 0.05,
+            x: xStart,
+            y: 0,
+            z: -1000,
+            opacity: 0,
+            visibility: "hidden",
+            pointerEvents: "none",
           },
-        },
-        `>-0.1` // zoom past starts shortly after reaching full view
-      );
-    });
-  }, { scope: triggerRef });
+          {
+            scale: 1,
+            x: 0,
+            y: 0,
+            z: 0,
+            opacity: 1,
+            visibility: "visible",
+            pointerEvents: "auto",
+            duration: 1,
+            ease: "power2.out",
+          },
+          idx * 0.75, // enter overlap ratio creates continuous highway flow
+        ).to(
+          card,
+          {
+            scale: 4.5,
+            x: xEnd,
+            y: yEnd,
+            z: 500,
+            opacity: 0,
+            pointerEvents: "none",
+            duration: 1.2,
+            ease: "power2.in",
+            // Set to hidden at the end of zoom to avoid blocking layout
+            onComplete: () => {
+              gsap.set(card, { visibility: "hidden" });
+            },
+          },
+          `>-0.1`, // zoom past starts shortly after reaching full view
+        );
+      });
+    },
+    { scope: triggerRef },
+  );
 
   return (
-    <section ref={containerRef} className="relative bg-[#050505] overflow-hidden">
+    <section
+      ref={containerRef}
+      className="relative bg-[#050505] overflow-hidden"
+    >
       {/* Title section - stays fixed on top */}
       <div className="absolute top-24 left-0 w-full z-40 text-center pointer-events-none px-4">
         <p className="text-green uppercase tracking-[0.3em] text-xs font-semibold">
           Portfolio
         </p>
-        <h2 className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl text-cWhite mt-4`}>
+        <h2
+          className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl text-cWhite mt-4`}
+        >
           Selected Projects
         </h2>
         <p className="text-cWhite/40 text-sm mt-3 tracking-wide">
@@ -177,9 +186,11 @@ const Projects = () => {
                 <span className="text-green text-xs md:text-sm font-semibold tracking-wider uppercase mb-1">
                   {project.category}
                 </span>
-                
+
                 <div className="flex items-center justify-between">
-                  <h3 className={`${higuen.className} text-3xl md:text-4xl text-cWhite`}>
+                  <h3
+                    className={`${higuen.className} text-3xl md:text-4xl text-cWhite`}
+                  >
                     {project.name}
                   </h3>
                   <a
@@ -193,6 +204,34 @@ const Projects = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="relative z-50 py-40 bg-black-main border-t border-white/5 text-center flex flex-col items-center gap-10">
+        <div className="space-y-6">
+          <p className="text-green uppercase tracking-[0.3em] text-sm">
+            Let's Build Something Great
+          </p>
+
+          <h3
+            className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl leading-[1.1]`}
+          >
+            Ready To Work <br /> Together?
+          </h3>
+
+          <p className="text-cWhite/60 max-w-lg mx-auto text-base md:text-lg leading-relaxed">
+            Have an exciting project in mind or looking to hire a full-stack
+            engineer? Let's build something exceptional together.
+          </p>
+        </div>
+
+        <a
+          href="mailto:benjaminnkemfrancis@gmail.com"
+          className="m-over inline-block"
+        >
+          <Button size="large" rounded="full" variant="filled">
+            Get In Touch →
+          </Button>
+        </a>
       </div>
     </section>
   );
