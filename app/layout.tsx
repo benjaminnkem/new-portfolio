@@ -4,8 +4,8 @@ import { dmSans } from "@/lib/utils/fonts";
 import Providers from "@/lib/providers";
 
 export const metadata: Metadata = {
-  title: "Benjamin Nkem",
-  description: "Hi, I'm Benjamin Nkem, a Fullstack Web Developer with 5 years of experience",
+  title: "Benjamin Nkem (Tochison)",
+  description: "Hi, I'm Benjamin Nkem (Tochison), a Fullstack Web Developer with 5 years of experience",
 };
 
 export default function RootLayout({

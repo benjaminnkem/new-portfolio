@@ -57,7 +57,7 @@ const Footer = () => {
             </div>
 
             <div className="text-sm">
-              <p className={higuen.className}>Benjamin Nkem</p>
+              <p className={higuen.className}>Benjamin Nkem (Tochison)</p>
               <p className="text-xs">benjaminnkemfrancis@gmail.com</p>
             </div>
           </div>

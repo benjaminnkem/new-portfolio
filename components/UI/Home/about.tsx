@@ -79,10 +79,11 @@ const AboutMe = () => {
           </h2>
 
           <p ref={textRef} className="text-cWhite/60 leading-relaxed">
-            I’m Benjamin Nkem, a fullstack engineer focused on building fast,
-            scalable and visually refined digital experiences. I care about both
-            engineering depth and interface clarity — making sure every product
-            feels intentional, smooth, and usable.
+            I’m Benjamin Nkem (also known as Tochison), a fullstack engineer
+            focused on building fast, scalable, and visually refined digital
+            experiences. I care about both engineering depth and interface
+            clarity — making sure every product feels intentional, smooth,
+            and usable.
           </p>
 
           <button className="mt-4 px-6 py-3 rounded-full border border-white/20 hover:border-green hover:text-green transition-colors">
