@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
 import classNames from "classnames";
-import { LuLoader2 } from "react-icons/lu";
+import { LuLoader as LuLoader2 } from "react-icons/lu";
 import { dmSans } from "@/lib/utils/fonts";
 
 type Props = {
@@ -14,7 +14,10 @@ type Props = {
   fullWidth?: boolean;
   loading?: boolean;
   onClick?: () => void;
-} & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+} & DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 
 const Button: FC<Props> = (props) => {
   const {
@@ -32,7 +35,9 @@ const Button: FC<Props> = (props) => {
     ...rest
   } = props;
   let mainClass = `font-semibold duration-300 ${
-    fullWidth ? "w-full flex items-center justify-center gap-3" : "w-auto flex items-center gap-2"
+    fullWidth
+      ? "w-full flex items-center justify-center gap-3"
+      : "w-auto flex items-center gap-2"
   } disabled:opacity-40 disabled:cursor-not-allowed ${dmSans.className} `;
 
   switch (variant) {
@@ -94,7 +99,9 @@ const Button: FC<Props> = (props) => {
         </>
       )}
 
-      <span className="flex-shrink-0">{!loading ? children : "Loading..."}</span>
+      <span className="flex-shrink-0">
+        {!loading ? children : "Loading..."}
+      </span>
 
       {iconPosition === "right" && (
         <>
