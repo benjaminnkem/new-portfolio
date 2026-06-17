@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { gsap } from "@/lib/gsap";
 import { IoCloseOutline } from "react-icons/io5";
 import { higuen } from "@/lib/utils/fonts";
 import type { Project } from "@/lib/data/projects";
@@ -15,12 +15,15 @@ interface ProjectModalProps {
 const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
   const backdropRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     if (!project) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") onCloseRef.current();
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -42,7 +45,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [project, onClose]);
+  }, [project]);
 
   const handleClose = () => {
     gsap.to(backdropRef.current, {
@@ -57,7 +60,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
       scale: 0.98,
       duration: 0.3,
       ease: "power2.in",
-      onComplete: onClose,
+      onComplete: () => onCloseRef.current(),
     });
   };
 
@@ -94,7 +97,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               alt={project.name}
               fill
               className="object-cover"
-              priority
+              sizes="(max-width: 768px) 100vw, 896px"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c0c] via-[#0c0c0c]/40 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
@@ -115,9 +118,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             </p>
 
             <div className="space-y-4">
-              <h3
-                className={`${higuen.className} text-2xl text-cWhite`}
-              >
+              <h3 className={`${higuen.className} text-2xl text-cWhite`}>
                 Overview
               </h3>
               <ul className="space-y-3">
@@ -134,9 +135,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             </div>
 
             <div className="space-y-4">
-              <h3
-                className={`${higuen.className} text-2xl text-cWhite`}
-              >
+              <h3 className={`${higuen.className} text-2xl text-cWhite`}>
                 Technologies
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -153,9 +152,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
             {project.images.length > 1 && (
               <div className="space-y-4">
-                <h3
-                  className={`${higuen.className} text-2xl text-cWhite`}
-                >
+                <h3 className={`${higuen.className} text-2xl text-cWhite`}>
                   Gallery
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -169,6 +166,8 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                         alt={`${project.name} screenshot ${idx + 2}`}
                         fill
                         className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 440px"
+                        loading="lazy"
                       />
                     </div>
                   ))}

@@ -1,12 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { higuen } from "@/lib/utils/fonts";
 import { PiCubeDuotone } from "react-icons/pi";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutMe = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -15,6 +12,8 @@ const AboutMe = () => {
   const statsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
         y: 40,
@@ -56,7 +55,11 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="relative py-32 overflow-hidden"
+    >
       <div className="absolute top-10 left-10 opacity-10">
         <PiCubeDuotone size={180} />
       </div>

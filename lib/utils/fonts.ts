@@ -5,16 +5,6 @@ export const dmSans = localFont({
   display: "swap",
 });
 
-export const montserrat = localFont({
-  src: "../../fonts/Montserrat-VariableFont_wght.ttf",
-  display: "swap",
-});
-
-export const workSans = localFont({
-  src: "../../fonts/WorkSans-VariableFont_wght.ttf",
-  display: "swap",
-});
-
 export const higuen = localFont({
   src: "../../fonts/Higuen_Serif.otf",
   display: "swap",

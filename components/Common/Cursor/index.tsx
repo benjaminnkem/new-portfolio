@@ -61,9 +61,7 @@ const Cursor = () => {
     const handlePointerMove = (e: PointerEvent) => {
       moveX(e.clientX);
       moveY(e.clientY);
-
-      const target = document.elementFromPoint(e.clientX, e.clientY);
-      setHover(isInteractiveTarget(target));
+      setHover(isInteractiveTarget(e.target as Element));
 
       if (!hasAppeared.current) {
         gsap.to(el, { visibility: "visible", opacity: 1, duration: 0.18 });

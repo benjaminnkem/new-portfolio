@@ -22,7 +22,7 @@ button {
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -48,8 +48,10 @@ body {
   }
 }
 
-*, *::before, *::after {
-  cursor: none !important;
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
 }
 
 .hide-scroll::-webkit-scrollbar {

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { higuen } from "@/lib/utils/fonts";
 
 const Hero = () => {
@@ -13,6 +13,8 @@ const Hero = () => {
   const glowRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(() => {
+    if (prefersReducedMotion()) return;
+
     gsap.from(titleRef.current, {
       y: 60,
       opacity: 0,
@@ -30,79 +32,90 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const name = nameRef.current;
     const glow = glowRef.current;
     const title = titleRef.current;
     const sub = subRef.current;
+    const container = containerRef.current;
 
-    if (!name || !glow || !title || !sub) return;
+    if (!name || !glow || !title || !sub || !container) return;
 
-    let mouseX = 0;
-    let mouseY = 0;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+    const nameX = gsap.quickTo(name, "x", { duration: 1, ease: "power3.out" });
+    const nameY = gsap.quickTo(name, "y", { duration: 1, ease: "power3.out" });
+    const glowX = gsap.quickTo(glow, "x", { duration: 1, ease: "power3.out" });
+    const glowY = gsap.quickTo(glow, "y", { duration: 1, ease: "power3.out" });
+    const titleX = gsap.quickTo(title, "x", { duration: 0.6, ease: "power3.out" });
+    const titleY = gsap.quickTo(title, "y", { duration: 0.6, ease: "power3.out" });
+    const subX = gsap.quickTo(sub, "x", { duration: 0.6, ease: "power3.out" });
+    const subY = gsap.quickTo(sub, "y", { duration: 0.6, ease: "power3.out" });
 
     const onMove = (e: MouseEvent) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (!finePointer) return;
 
-      gsap.to(name, {
-        x: mouseX * 50,
-        y: mouseY * 30,
-        duration: 1,
-        ease: "power3.out",
-      });
+      const mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      const mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
 
-      gsap.to(glow, {
-        x: mouseX * 120,
-        y: mouseY * 120,
-        duration: 1,
-        ease: "power3.out",
-      });
-
-      gsap.to(title, {
-        x: mouseX * 10,
-        y: mouseY * 10,
-        duration: 0.6,
-        ease: "power3.out",
-      });
-
-      gsap.to(sub, {
-        x: mouseX * 6,
-        y: mouseY * 6,
-        duration: 0.6,
-        ease: "power3.out",
-      });
+      nameX(mouseX * 50);
+      nameY(mouseY * 30);
+      glowX(mouseX * 120);
+      glowY(mouseY * 120);
+      titleX(mouseX * 10);
+      titleY(mouseY * 10);
+      subX(mouseX * 6);
+      subY(mouseY * 6);
     };
 
-    const onScroll = () => {
-      const scrollY = window.scrollY;
-      const progress = Math.min(scrollY / window.innerHeight, 1);
-
-      gsap.to(containerRef.current, {
-        y: scrollY * -0.3,
-        scale: 1 - progress * 0.05,
-        opacity: 1 - progress * 0.6,
-        duration: 0.6,
-        ease: "power3.out",
+    const ctx = gsap.context(() => {
+      gsap.to(container, {
+        y: () => -window.innerHeight * 0.3,
+        scale: 0.95,
+        opacity: 0.4,
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
       });
 
       gsap.to(name, {
-        opacity: 0.2 - progress * 0.2,
-        scale: 1 + progress * 0.1,
-        duration: 0.6,
+        opacity: 0,
+        scale: 1.1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
       });
 
       gsap.to(glow, {
-        opacity: 0.6 - progress * 0.6,
-        duration: 0.6,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
       });
-    };
+    }, container);
 
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("scroll", onScroll);
+    if (finePointer) {
+      window.addEventListener("mousemove", onMove, { passive: true });
+    }
 
     return () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("scroll", onScroll);
+      ctx.revert();
+      if (finePointer) {
+        window.removeEventListener("mousemove", onMove);
+      }
     };
   }, []);
 
@@ -113,7 +126,7 @@ const Hero = () => {
     >
       <div
         ref={glowRef}
-        className="absolute size-[600px] rounded-full bg-green/10 blur-[140px]"
+        className="absolute size-[600px] rounded-full bg-green/10 blur-[80px] md:blur-[100px]"
       />
 
       <h1

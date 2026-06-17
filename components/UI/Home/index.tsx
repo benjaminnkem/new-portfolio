@@ -1,23 +1,19 @@
-"use client";
-
-import AboutMe from "./about";
 import Hero from "./hero";
-import Projects from "./projects";
-import Services from "./services";
+import AboutMe from "./about";
 import Stripes from "./stripes";
+import Services from "./services";
+import Projects from "./projects";
 
-const Home = () => {
-  return (
-    <>
-      <Hero />
-      <main>
-        <AboutMe />
-        <Stripes />
-        <Services />
-        <Projects />
-      </main>
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <Hero />
+    <main>
+      <AboutMe />
+      <Stripes />
+      <Services />
+      <Projects />
+    </main>
+  </>
+);
 
 export default Home;
