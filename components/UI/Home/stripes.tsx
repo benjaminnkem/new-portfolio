@@ -51,12 +51,14 @@ const StripeRow = ({
         style={{ x: springX }}
         className="flex items-center gap-10 font-semibold text-sm md:text-base uppercase tracking-wider"
       >
-        {[...items, ...items].map((item, i) => (
-          <div key={i} className="flex items-center gap-3">
-            <span>{item}</span>
-            <span className="size-1.5 rounded-full bg-current opacity-60" />
-          </div>
-        ))}
+        {[...items, ...items, ...items, ...items, ...items, ...items].map(
+          (item, i) => (
+            <div key={i} className="flex items-center gap-3">
+              <span>{item}</span>
+              <span className="size-1.5 rounded-full bg-current opacity-60" />
+            </div>
+          ),
+        )}
       </motion.div>
     </div>
   );

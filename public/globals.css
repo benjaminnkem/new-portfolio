@@ -82,11 +82,6 @@ body {
   pointer-events: none;
   mix-blend-mode: difference;
   background-color: #fff;
-  transition: scale 350ms ease;
-}
-
-.custom-cursor--link {
-  scale: 3;
 }
 
 .blend {

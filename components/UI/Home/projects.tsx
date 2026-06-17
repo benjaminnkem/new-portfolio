@@ -26,6 +26,12 @@ interface ProjectItem {
 
 const PROJECT_ITEMS: ProjectItem[] = [
   {
+    name: "AllAccessFans",
+    src: BdMeds,
+    category: "Content Creator Platform",
+    link: "#",
+  },
+  {
     name: "BdMeds",
     src: BdMeds,
     category: "Healthcare Platform",
@@ -63,45 +69,120 @@ const PROJECT_ITEMS: ProjectItem[] = [
   },
 ];
 
+const SPEED_LINES = Array.from({ length: 14 }, (_, i) => ({
+  id: i,
+  top: 8 + ((i * 17) % 84),
+  width: 80 + ((i * 31) % 160),
+  delay: (i * 0.07) % 0.5,
+}));
+
 const Projects = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLSpanElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const vignetteRef = useRef<HTMLDivElement>(null);
+  const speedLinesRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const cards = gsap.utils.toArray<HTMLElement>(".project-card");
+      const infos = gsap.utils.toArray<HTMLElement>(".project-info");
+      const glows = gsap.utils.toArray<HTMLElement>(".project-glow");
+      const speedLines = gsap.utils.toArray<HTMLElement>(".speed-line");
+
       if (!cards.length) return;
 
-      // Immersion: Pinned ScrollTrigger timeline
+      const overlap = 0.38;
+      const cardSpan = 1;
+      const totalSpan = (cards.length - 1) * (cardSpan - overlap) + cardSpan;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: triggerRef.current,
           start: "top top",
-          end: `+=${cards.length * 150}%`, // scroll track scale matches project length dynamically
-          scrub: 1.2,
+          end: `+=${Math.round(totalSpan * 145)}%`,
+          scrub: 0.65,
           pin: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const index = Math.min(
+              Math.floor(self.progress * cards.length),
+              cards.length - 1,
+            );
+            if (progressRef.current) {
+              progressRef.current.textContent = `${String(index + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+            }
+            if (progressBarRef.current) {
+              gsap.set(progressBarRef.current, {
+                scaleX: self.progress,
+              });
+            }
+          },
         },
       });
 
-      cards.forEach((card, idx) => {
-        const isLeft = idx % 2 === 0;
-        // Parallax pass-by variables: odd ones fly left, even ones fly right
-        const xStart = 0;
-        const xEnd = isLeft ? "-120vw" : "120vw";
-        const yEnd = "30vh"; // push down slightly as they pass the camera for dynamic depth
+      tl.fromTo(
+        bgRef.current,
+        { scale: 1.35, opacity: 0 },
+        { scale: 1, opacity: 1, duration: totalSpan * 0.25, ease: "power2.out" },
+        0,
+      );
 
-        // We animate cards:
-        // 1. Zooming in from the distant horizon (from scale 0.05, opacity 0, to scale 1, opacity 1)
-        // 2. Staying fully visible/active in the center
-        // 3. Zooming past the camera (to scale 4.5, opacity 0, offset xEnd)
+      tl.to(
+        bgRef.current,
+        { scale: 1.15, opacity: 0.7, duration: totalSpan * 0.75, ease: "none" },
+        totalSpan * 0.25,
+      );
+
+      tl.fromTo(
+        gridRef.current,
+        { yPercent: 0, opacity: 0 },
+        { yPercent: 55, opacity: 0.35, duration: totalSpan, ease: "none" },
+        0,
+      );
+
+      tl.fromTo(
+        vignetteRef.current,
+        { opacity: 0.5 },
+        { opacity: 1, duration: totalSpan * 0.4, ease: "power1.in" },
+        0,
+      );
+
+      tl.fromTo(
+        titleRef.current,
+        { y: 0, opacity: 1, scale: 1 },
+        {
+          y: -24,
+          opacity: 0.35,
+          scale: 0.92,
+          duration: totalSpan * 0.5,
+          ease: "power2.inOut",
+        },
+        totalSpan * 0.15,
+      );
+
+      cards.forEach((card, idx) => {
+        const info = infos[idx];
+        const glow = glows[idx];
+        const isLeft = idx % 2 === 0;
+        const start = idx * (cardSpan - overlap);
+        const enterEnd = start + cardSpan * 0.42;
+        const exitStart = start + cardSpan * 0.48;
+
         tl.fromTo(
           card,
           {
-            scale: 0.05,
-            x: xStart,
-            y: 0,
-            z: -1000,
+            scale: 0.06,
+            x: 0,
+            y: "28vh",
+            z: -2400,
+            rotationY: isLeft ? -22 : 22,
+            rotationX: 14,
             opacity: 0,
+            filter: "blur(16px) brightness(0.6)",
             visibility: "hidden",
             pointerEvents: "none",
           },
@@ -110,101 +191,269 @@ const Projects = () => {
             x: 0,
             y: 0,
             z: 0,
+            rotationY: 0,
+            rotationX: 0,
             opacity: 1,
+            filter: "blur(0px) brightness(1)",
             visibility: "visible",
             pointerEvents: "auto",
-            duration: 1,
-            ease: "power2.out",
+            duration: cardSpan * 0.42,
+            ease: "power4.out",
           },
-          idx * 0.75, // enter overlap ratio creates continuous highway flow
-        ).to(
+          start,
+        );
+
+        if (info) {
+          tl.fromTo(
+            info,
+            { y: 48, opacity: 0, filter: "blur(6px)" },
+            {
+              y: 0,
+              opacity: 1,
+              filter: "blur(0px)",
+              duration: 0.28,
+              ease: "power3.out",
+            },
+            enterEnd - 0.12,
+          ).to(
+            info,
+            {
+              y: -32,
+              opacity: 0,
+              filter: "blur(4px)",
+              duration: 0.22,
+              ease: "power2.in",
+            },
+            exitStart + 0.08,
+          );
+        }
+
+        if (glow) {
+          tl.fromTo(
+            glow,
+            { opacity: 0, scale: 0.6 },
+            {
+              opacity: 0.75,
+              scale: 1.15,
+              duration: 0.32,
+              ease: "power2.out",
+            },
+            enterEnd - 0.08,
+          ).to(
+            glow,
+            { opacity: 0, scale: 1.6, duration: 0.38, ease: "power2.in" },
+            exitStart,
+          );
+        }
+
+        tl.to(
           card,
           {
-            scale: 4.5,
-            x: xEnd,
-            y: yEnd,
-            z: 500,
+            scale: 5.5,
+            x: isLeft ? "-135vw" : "135vw",
+            y: isLeft ? "-18vh" : "22vh",
+            z: 1200,
+            rotationY: isLeft ? -32 : 32,
+            rotationX: -18,
             opacity: 0,
+            filter: "blur(10px) brightness(1.4)",
             pointerEvents: "none",
-            duration: 1.2,
-            ease: "power2.in",
-            // Set to hidden at the end of zoom to avoid blocking layout
-            onComplete: () => {
-              gsap.set(card, { visibility: "hidden" });
-            },
+            duration: cardSpan * 0.52,
+            ease: "power3.in",
           },
-          `>-0.1`, // zoom past starts shortly after reaching full view
+          exitStart,
         );
+
+        tl.set(card, { visibility: "hidden" }, start + cardSpan);
+
+        speedLines.forEach((line, lineIdx) => {
+          const lineStart = exitStart + lineIdx * 0.012;
+          tl.fromTo(
+            line,
+            { x: isLeft ? "20vw" : "-20vw", opacity: 0, scaleX: 0.2 },
+            {
+              x: isLeft ? "-90vw" : "90vw",
+              opacity: 0.55,
+              scaleX: 1,
+              duration: 0.35,
+              ease: "power2.in",
+            },
+            lineStart,
+          ).to(line, { opacity: 0, duration: 0.15, ease: "power1.in" }, lineStart + 0.28);
+        });
       });
+
+      if (speedLinesRef.current) {
+        tl.to(
+          speedLinesRef.current,
+          { opacity: 0.9, duration: totalSpan * 0.3, ease: "power1.inOut" },
+          0,
+        );
+      }
     },
     { scope: triggerRef },
   );
 
   return (
     <section
-      ref={containerRef}
       className="relative bg-[#050505] overflow-hidden"
       id="projects"
     >
-      {/* Title section - stays fixed on top */}
-      <div className="absolute top-24 left-0 w-full z-40 text-center pointer-events-none px-4">
-        <p className="text-green uppercase tracking-[0.3em] text-xs font-semibold">
-          Portfolio
-        </p>
-        <h2
-          className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl text-cWhite mt-4`}
-        >
-          Selected Projects
-        </h2>
-        <p className="text-cWhite/40 text-sm mt-3 tracking-wide">
-          (Scroll down to drive through the gallery)
-        </p>
-      </div>
-
-      {/* Pinned Scroll container */}
       <div
         ref={triggerRef}
         className="h-screen w-full relative flex items-center justify-center overflow-hidden"
-        style={{ perspective: "1000px" }} // enable 3D depth context for translations
+        style={{ perspective: "1400px" }}
       >
-        {PROJECT_ITEMS.map((project, idx) => (
-          <div
-            key={project.name}
-            className="project-card absolute w-[80vw] h-[45vh] md:w-[45vw] md:h-[55vh] max-w-[600px] max-h-[420px] rounded-[24px] overflow-hidden border border-white/10 bg-[#0c0c0c] select-none pointer-events-none"
-            style={{ transformStyle: "preserve-3d" }}
+        <div
+          ref={bgRef}
+          className="absolute inset-0 pointer-events-none opacity-0"
+          aria-hidden
+        >
+          <div className="absolute top-[12%] left-[18%] w-[min(520px,60vw)] h-[min(520px,60vw)] rounded-full bg-green/[0.07] blur-[130px]" />
+          <div className="absolute bottom-[18%] right-[12%] w-[min(440px,50vw)] h-[min(440px,50vw)] rounded-full bg-green/[0.09] blur-[110px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(700px,80vw)] h-[min(700px,80vw)] rounded-full bg-[#1a2e00]/30 blur-[160px]" />
+        </div>
+
+        <div
+          ref={gridRef}
+          className="absolute inset-x-[-20%] bottom-[-10%] h-[70%] pointer-events-none opacity-0 origin-bottom"
+          style={{
+            transform: "rotateX(72deg)",
+            transformStyle: "preserve-3d",
+            backgroundImage: `
+              linear-gradient(rgba(144,255,3,0.18) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(144,255,3,0.18) 1px, transparent 1px)
+            `,
+            backgroundSize: "64px 64px",
+            maskImage:
+              "linear-gradient(to top, black 0%, black 40%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to top, black 0%, black 40%, transparent 100%)",
+          }}
+          aria-hidden
+        />
+
+        <div
+          ref={speedLinesRef}
+          className="absolute inset-0 pointer-events-none opacity-0"
+          aria-hidden
+        >
+          {SPEED_LINES.map((line) => (
+            <div
+              key={line.id}
+              className="speed-line absolute h-px bg-gradient-to-r from-transparent via-green/50 to-transparent opacity-0"
+              style={{
+                top: `${line.top}%`,
+                left: "50%",
+                width: `${line.width}px`,
+                marginLeft: `-${line.width / 2}px`,
+              }}
+            />
+          ))}
+        </div>
+
+        <div
+          ref={vignetteRef}
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 75% 65% at 50% 50%, transparent 30%, rgba(5,5,5,0.85) 100%)",
+          }}
+          aria-hidden
+        />
+
+        <div
+          ref={titleRef}
+          className="absolute top-20 md:top-24 left-0 w-full z-40 text-center pointer-events-none px-4"
+        >
+          <p className="text-green uppercase tracking-[0.3em] text-xs font-semibold">
+            Portfolio
+          </p>
+          <h2
+            className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl text-cWhite mt-4`}
           >
-            <div className="relative w-full h-full group pointer-events-auto">
-              <Image
-                src={project.src}
-                alt={project.name}
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
-                fill
-                placeholder="blur"
+            Selected Projects
+          </h2>
+          <p className="text-cWhite/40 text-sm mt-3 tracking-wide">
+            Scroll to drive through the gallery
+          </p>
+        </div>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-3 pointer-events-none">
+          <span
+            ref={progressRef}
+            className="text-cWhite/50 text-xs tracking-[0.35em] font-medium tabular-nums"
+          >
+            01 / 07
+          </span>
+          <div className="w-40 md:w-52 h-[2px] bg-white/10 rounded-full overflow-hidden">
+            <div
+              ref={progressBarRef}
+              className="h-full w-full bg-green origin-left scale-x-0"
+            />
+          </div>
+        </div>
+
+        <div
+          className="relative w-full h-full flex items-center justify-center"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {PROJECT_ITEMS.map((project) => (
+            <div
+              key={project.name}
+              className="project-card absolute w-[82vw] h-[46vh] md:w-[46vw] md:h-[56vh] max-w-[620px] max-h-[430px] rounded-[24px] overflow-visible border border-white/10 bg-[#0c0c0c] select-none pointer-events-none will-change-transform"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <div
+                className="project-glow absolute -inset-8 rounded-[32px] bg-green/20 blur-[48px] opacity-0 pointer-events-none"
+                aria-hidden
               />
 
-              {/* Glassmorphic Project Overlay card */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#010101] via-[#010101]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8 md:p-10 pointer-events-auto m-over">
-                <span className="text-green text-xs md:text-sm font-semibold tracking-wider uppercase mb-1">
-                  {project.category}
-                </span>
+              <div className="relative w-full h-full rounded-[24px] overflow-hidden group pointer-events-auto m-over">
+                <Image
+                  src={project.src}
+                  alt={project.name}
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
+                  fill
+                  placeholder="blur"
+                />
 
-                <div className="flex items-center justify-between">
-                  <h3
-                    className={`${higuen.className} text-3xl md:text-4xl text-cWhite`}
-                  >
-                    {project.name}
-                  </h3>
-                  <a
-                    href={project.link}
-                    className="size-12 rounded-full bg-green text-black-main flex items-center justify-center font-bold text-xl hover:scale-110 transition-transform select-none"
-                  >
-                    ↗
-                  </a>
+                <div className="project-info absolute inset-x-0 bottom-0 z-10 p-8 md:p-10 pointer-events-none opacity-0">
+                  <div className="bg-[#010101]/75 backdrop-blur-md rounded-2xl border border-white/10 p-6 md:p-8">
+                    <span className="text-green text-xs md:text-sm font-semibold tracking-wider uppercase">
+                      {project.category}
+                    </span>
+                    <h3
+                      className={`${higuen.className} text-3xl md:text-4xl text-cWhite mt-2`}
+                    >
+                      {project.name}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#010101] via-[#010101]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8 md:p-10 pointer-events-auto m-over">
+                  <span className="text-green text-xs md:text-sm font-semibold tracking-wider uppercase mb-1">
+                    {project.category}
+                  </span>
+
+                  <div className="flex items-center justify-between">
+                    <h3
+                      className={`${higuen.className} text-3xl md:text-4xl text-cWhite`}
+                    >
+                      {project.name}
+                    </h3>
+                    <a
+                      href={project.link}
+                      className="size-12 rounded-full bg-green text-black-main flex items-center justify-center font-bold text-xl hover:scale-110 transition-transform select-none"
+                    >
+                      ↗
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div className="relative z-50 py-40 bg-black-main border-t border-white/5 text-center flex flex-col items-center gap-10">
