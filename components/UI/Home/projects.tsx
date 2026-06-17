@@ -1,73 +1,17 @@
 "use client";
 
-import BdMeds from "../../../public/images/bdmeds.jpg";
-import NaijaWrapped from "../../../public/images/9ja-wrapped.png";
-import MovieMex from "../../../public/images/moviemex1.png";
-import BSolar from "../../../public/images/bsolar.png";
-import DashFd from "../../../public/images/dash-fd.png";
-import Portfolio from "../../../public/images/astro-portfolio.png";
-
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { higuen } from "@/lib/utils/fonts";
 import Button from "@/components/Common/Button";
+import { PROJECTS } from "@/lib/data/projects";
+import type { Project } from "@/lib/data/projects";
+import ProjectModal from "./project-modal";
 
 gsap.registerPlugin(ScrollTrigger);
-
-interface ProjectItem {
-  name: string;
-  src: any;
-  category: string;
-  link: string;
-}
-
-const PROJECT_ITEMS: ProjectItem[] = [
-  {
-    name: "AllAccessFans",
-    src: BdMeds,
-    category: "Content Creator Platform",
-    link: "#",
-  },
-  {
-    name: "BdMeds",
-    src: BdMeds,
-    category: "Healthcare Platform",
-    link: "#",
-  },
-  {
-    name: "NaijaWrapped",
-    src: NaijaWrapped,
-    category: "Year-End Wrapped",
-    link: "#",
-  },
-  {
-    name: "MovieMex",
-    src: MovieMex,
-    category: "Streaming Directory",
-    link: "#",
-  },
-  {
-    name: "Portfolio",
-    src: Portfolio,
-    category: "Creative Space",
-    link: "#",
-  },
-  {
-    name: "BSolar",
-    src: BSolar,
-    category: "Clean Energy Solutions",
-    link: "#",
-  },
-  {
-    name: "DashFd",
-    src: DashFd,
-    category: "Food Delivery App",
-    link: "#",
-  },
-];
 
 const SPEED_LINES = Array.from({ length: 14 }, (_, i) => ({
   id: i,
@@ -77,6 +21,7 @@ const SPEED_LINES = Array.from({ length: 14 }, (_, i) => ({
 }));
 
 const Projects = () => {
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
@@ -85,6 +30,9 @@ const Projects = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
   const speedLinesRef = useRef<HTMLDivElement>(null);
+
+  const projectCount = PROJECTS.length;
+  const paddedCount = String(projectCount).padStart(2, "0");
 
   useGSAP(
     () => {
@@ -113,7 +61,7 @@ const Projects = () => {
               cards.length - 1,
             );
             if (progressRef.current) {
-              progressRef.current.textContent = `${String(index + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+              progressRef.current.textContent = `${String(index + 1).padStart(2, "0")} / ${paddedCount}`;
             }
             if (progressBarRef.current) {
               gsap.set(progressBarRef.current, {
@@ -384,7 +332,7 @@ const Projects = () => {
             ref={progressRef}
             className="text-cWhite/50 text-xs tracking-[0.35em] font-medium tabular-nums"
           >
-            01 / 07
+            01 / {paddedCount}
           </span>
           <div className="w-40 md:w-52 h-[2px] bg-white/10 rounded-full overflow-hidden">
             <div
@@ -398,9 +346,9 @@ const Projects = () => {
           className="relative w-full h-full flex items-center justify-center"
           style={{ transformStyle: "preserve-3d" }}
         >
-          {PROJECT_ITEMS.map((project) => (
+          {PROJECTS.map((project) => (
             <div
-              key={project.name}
+              key={project.slug}
               className="project-card absolute w-[82vw] h-[46vh] md:w-[46vw] md:h-[56vh] max-w-[620px] max-h-[430px] rounded-[24px] overflow-visible border border-white/10 bg-[#0c0c0c] select-none pointer-events-none will-change-transform"
               style={{ transformStyle: "preserve-3d" }}
             >
@@ -411,43 +359,35 @@ const Projects = () => {
 
               <div className="relative w-full h-full rounded-[24px] overflow-hidden group pointer-events-auto m-over">
                 <Image
-                  src={project.src}
+                  src={project.images[0]}
                   alt={project.name}
                   className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
                   fill
-                  placeholder="blur"
+                  sizes="(max-width: 768px) 82vw, 46vw"
                 />
 
+                <div className="absolute inset-0 bg-gradient-to-t from-[#010101] via-[#010101]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
                 <div className="project-info absolute inset-x-0 bottom-0 z-10 p-8 md:p-10 pointer-events-none opacity-0">
-                  <div className="bg-[#010101]/75 backdrop-blur-md rounded-2xl border border-white/10 p-6 md:p-8">
+                  <div className="bg-[#010101]/75 backdrop-blur-md rounded-2xl border border-white/10 p-6 md:p-8 pointer-events-auto">
                     <span className="text-green text-xs md:text-sm font-semibold tracking-wider uppercase">
                       {project.category}
                     </span>
-                    <h3
-                      className={`${higuen.className} text-3xl md:text-4xl text-cWhite mt-2`}
-                    >
-                      {project.name}
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#010101] via-[#010101]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8 md:p-10 pointer-events-auto m-over">
-                  <span className="text-green text-xs md:text-sm font-semibold tracking-wider uppercase mb-1">
-                    {project.category}
-                  </span>
-
-                  <div className="flex items-center justify-between">
-                    <h3
-                      className={`${higuen.className} text-3xl md:text-4xl text-cWhite`}
-                    >
-                      {project.name}
-                    </h3>
-                    <a
-                      href={project.link}
-                      className="size-12 rounded-full bg-green text-black-main flex items-center justify-center font-bold text-xl hover:scale-110 transition-transform select-none"
-                    >
-                      ↗
-                    </a>
+                    <div className="flex items-center justify-between mt-2 gap-4">
+                      <h3
+                        className={`${higuen.className} text-3xl md:text-4xl text-cWhite`}
+                      >
+                        {project.name}
+                      </h3>
+                      <button
+                        type="button"
+                        onClick={() => setActiveProject(project)}
+                        className="size-12 shrink-0 rounded-full bg-green text-black-main flex items-center justify-center font-bold text-xl opacity-0 group-hover:opacity-100 hover:scale-110 transition-all duration-300 select-none"
+                        aria-label={`View ${project.name} details`}
+                      >
+                        ↗
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -483,6 +423,11 @@ const Projects = () => {
           </Button>
         </a>
       </div>
+
+      <ProjectModal
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
     </section>
   );
 };

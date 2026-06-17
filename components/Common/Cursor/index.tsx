@@ -88,7 +88,9 @@ const Cursor = () => {
       hasAppeared.current = true;
     };
 
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
     document.documentElement.addEventListener(
       "pointerleave",
       handlePointerLeave,
