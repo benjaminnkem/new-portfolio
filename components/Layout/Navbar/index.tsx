@@ -97,16 +97,16 @@ const Navbar = () => {
           <Link href="/" onClick={() => updateIsMenuOpen(false)}>
             Home
           </Link>
-          <Link href="#about" onClick={() => updateIsMenuOpen(false)}>
+          <Link href="/#about" onClick={() => updateIsMenuOpen(false)}>
             About
           </Link>
-          <Link href="#services" onClick={() => updateIsMenuOpen(false)}>
+          <Link href="/#services" onClick={() => updateIsMenuOpen(false)}>
             Services
           </Link>
-          <Link href="#projects" onClick={() => updateIsMenuOpen(false)}>
+          <Link href="/#projects" onClick={() => updateIsMenuOpen(false)}>
             Projects
           </Link>
-          <Link href="#contact" onClick={() => updateIsMenuOpen(false)}>
+          <Link href="/#contact" onClick={() => updateIsMenuOpen(false)}>
             Contact
           </Link>
         </div>

@@ -144,6 +144,7 @@ const Projects = () => {
     <section
       ref={containerRef}
       className="relative bg-[#050505] overflow-hidden"
+      id="projects"
     >
       {/* Title section - stays fixed on top */}
       <div className="absolute top-24 left-0 w-full z-40 text-center pointer-events-none px-4">
