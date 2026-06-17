@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from "axios";
 import { PUBLIC_API_URL } from "../constants/env";
-import { getSession } from "next-auth/react";
 
 export const publicApi: AxiosInstance = axios.create({
   baseURL: PUBLIC_API_URL,
@@ -14,9 +13,6 @@ export const authApi: AxiosInstance = axios.create({
 authApi.defaults.headers.common["Content-Type"] = "application/json";
 
 authApi.interceptors.request.use(async (config) => {
-  const session = await getSession();
-  if (!session) return config;
-
   // const token = session.user.meta.accessToken;
 
   config.headers["Authorization"] = `Bearer  `;
@@ -30,5 +26,5 @@ authApi.interceptors.response.use(
     if (axios.isAxiosError(error)) {
       return Promise.reject(error);
     }
-  }
+  },
 );
