@@ -22,7 +22,13 @@ export const PROJECTS: Project[] = [
       "Designed onboarding flows that reduce time-to-first-post for new creators joining the platform.",
       "Implemented role-based access so creators, moderators, and fans each get tailored experiences.",
     ],
-    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Stripe", "Tailwind CSS"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Stripe",
+      "Tailwind CSS",
+    ],
     images: [
       "/images/projects/allaccess/1.png",
       "/images/projects/allaccess/2.png",
@@ -31,15 +37,15 @@ export const PROJECTS: Project[] = [
   {
     slug: "disux",
     name: "Disux",
-    category: "Design & UX Studio",
+    category: "Crypto Exchange",
     description:
-      "A digital studio site showcasing brand systems, product design work, and case studies for client engagements.",
+      "A non-custodial crypto-to-Naira exchange that replaces unreliable P2P trades with fast, secure, and low-fee transactions.",
     overview: [
-      "Crafted a editorial layout system that scales from single project features to full portfolio grids.",
-      "Integrated motion and scroll-driven reveals to highlight process and deliverables without overwhelming content.",
-      "Structured case study templates so new projects can be published with consistent storytelling.",
+      "Built the full-stack platform end to end — NestJS API with MySQL on the backend and a Next.js frontend styled with Tailwind CSS.",
+      "Designed a streamlined buy/sell flow from account creation and KYC verification through order placement and instant Naira bank payouts.",
+      "Implemented live rate feeds, multi-asset support (BTC, ETH, USDT, TON, and more), and a non-custodial model that keeps user funds under their control.",
     ],
-    technologies: ["Next.js", "Framer Motion", "GSAP", "Tailwind CSS", "Figma"],
+    technologies: ["Next.js", "NestJS", "MySQL", "TypeScript", "Tailwind CSS"],
     images: [
       "/images/projects/disux/1.png",
       "/images/projects/disux/2.png",
@@ -50,38 +56,29 @@ export const PROJECTS: Project[] = [
   {
     slug: "monei",
     name: "Monei",
-    category: "Fintech Platform",
+    category: "AI Fintech Platform",
     description:
-      "A personal finance application helping users track spending, set budgets, and visualize financial health over time.",
+      "An AI-native financial infrastructure platform that lets businesses and intelligent agents automate payments, banking, investments, and insurance through a single unified API.",
     overview: [
-      "Developed real-time transaction categorization with clear visual breakdowns across accounts.",
-      "Built savings goal modules with progress tracking and automated contribution reminders.",
-      "Focused on accessible data visualization so complex financial patterns stay easy to read at a glance.",
+      "Led frontend development as senior engineer — built the marketing site and product UI in Next.js with Radix UI, Tailwind CSS, and motion-driven storytelling via GSAP and Framer Motion.",
+      "Shipped the Mr. Monei AI assistant experience using the Vercel AI SDK, with conversational flows for executing transactions, checking balances, and managing portfolios.",
+      "Integrated TanStack Query, React Hook Form, and Zod for robust data fetching and validation across MCP server tooling, NGN/USD on-off ramps, and automated transaction workflows.",
     ],
-    technologies: ["React", "Node.js", "MongoDB", "Recharts", "Tailwind CSS"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Radix UI",
+      "TanStack Query",
+      "AI SDK",
+      "GSAP",
+      "Zustand",
+    ],
     images: [
       "/images/projects/monei/1.png",
       "/images/projects/monei/2.png",
       "/images/projects/monei/3.png",
-    ],
-  },
-  {
-    slug: "stockly",
-    name: "Stockly",
-    category: "Inventory Management",
-    description:
-      "An inventory and stock management tool for small businesses to monitor products, suppliers, and restock alerts.",
-    overview: [
-      "Created a unified inventory view with low-stock warnings and supplier lead-time tracking.",
-      "Added bulk import and export workflows so teams can migrate existing spreadsheets quickly.",
-      "Designed dashboards that surface turnover rates and dead-stock items for smarter purchasing decisions.",
-    ],
-    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS"],
-    images: [
-      "/images/projects/stockly/1.png",
-      "/images/projects/stockly/2.png",
-      "/images/projects/stockly/3.png",
-      "/images/projects/stockly/4.png",
     ],
   },
   {
@@ -106,17 +103,50 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: "stockly",
+    name: "Stockly",
+    category: "Inventory Management",
+    description:
+      "An inventory and stock management tool for small businesses to monitor products, suppliers, and restock alerts.",
+    overview: [
+      "Created a unified inventory view with low-stock warnings and supplier lead-time tracking.",
+      "Added bulk import and export workflows so teams can migrate existing spreadsheets quickly.",
+      "Designed dashboards that surface turnover rates and dead-stock items for smarter purchasing decisions.",
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Tailwind CSS",
+    ],
+    images: [
+      "/images/projects/stockly/1.png",
+      "/images/projects/stockly/2.png",
+      "/images/projects/stockly/3.png",
+    ],
+  },
+  {
     slug: "zapfi",
     name: "Zapfi",
-    category: "Payments & Transfers",
+    category: "Web3 Wallet",
     description:
-      "A fast payments app for sending money, paying bills, and managing digital wallets with a minimal interface.",
+      "A web3-powered crypto wallet that makes getting into digital assets simple — generate a wallet in seconds, then buy, sell, send, and receive crypto from one place.",
     overview: [
-      "Designed a frictionless send-and-receive flow optimized for mobile-first, one-handed use.",
-      "Integrated bill payment modules with saved beneficiaries and recurring schedule support.",
-      "Built transaction history with smart search and export options for personal record keeping.",
+      "Led frontend development in Next.js, building the full user experience from onboarding through wallet creation, trading, and transaction history.",
+      "Integrated web3 wallet flows so users can generate secure addresses and manage their portfolio without leaving the platform.",
+      "Crafted an immersive marketing experience with React Three Fiber, GSAP, and Framer Motion to bring the crypto onboarding journey to life.",
     ],
-    technologies: ["React Native", "Node.js", "Redis", "PostgreSQL", "Tailwind CSS"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Three.js",
+      "GSAP",
+      "Framer Motion",
+      "Tailwind CSS",
+      "Zustand",
+    ],
     images: [
       "/images/projects/zapfi/1.png",
       "/images/projects/zapfi/2.png",
