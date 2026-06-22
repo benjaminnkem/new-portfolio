@@ -18,20 +18,45 @@ export const PROJECTS: Project[] = [
     description:
       "A membership platform connecting creators with their audience through exclusive content, subscriptions, and community features.",
     overview: [
-      "Built a creator-first dashboard for managing subscribers, payouts, and content tiers in one place.",
-      "Designed onboarding flows that reduce time-to-first-post for new creators joining the platform.",
-      "Implemented role-based access so creators, moderators, and fans each get tailored experiences.",
+      "Led frontend development for AllAccessFans — built the creator dashboard, fan experiences, and subscription flows in Next.js with TypeScript and Tailwind CSS.",
+      "Partnered with backend engineers to design and ship new features, translating API contracts into polished, production-ready interfaces.",
+      "Delivered onboarding flows, role-based views for creators and moderators, and Stripe-powered subscription UI across the platform.",
     ],
-    technologies: [
-      "Next.js",
-      "TypeScript",
-      "PostgreSQL",
-      "Stripe",
-      "Tailwind CSS",
-    ],
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Zustand"],
     images: [
       "/images/projects/allaccess/1.png",
       "/images/projects/allaccess/2.png",
+    ],
+  },
+  {
+    slug: "gidisquare",
+    name: "GidiSquare",
+    category: "Service Marketplace",
+    description:
+      "The UK's leading service marketplace — an all-in-one platform where customers book local professionals, shop unique products, and thrive in the gig economy.",
+    overview: [
+      "Built the NestJS backend powering the entire platform — user auth, service listings, bookings, orders, GidiWallet payments, and real-time chat for 2,000+ verified professionals.",
+      "Implemented secure transaction flows with Stripe, a seamless wallet system, and BullMQ background jobs backed by Redis caching for reliable, high-throughput operations.",
+      "Delivered WebSocket-based live messaging, AI-driven service matchmaking, admin tooling, and analytics APIs behind the mobile app's e-commerce and gig economy features.",
+    ],
+    technologies: [
+      "NestJS",
+      "MongoDB",
+      "Redis",
+      "Stripe",
+      "Socket.IO",
+      "BullMQ",
+      "TypeScript",
+    ],
+    images: [
+      "/images/projects/gidisquare/1.png",
+      "/images/projects/gidisquare/2.png",
+      "/images/projects/gidisquare/3.png",
+      "/images/projects/gidisquare/mobile_1.png",
+      "/images/projects/gidisquare/mobile_2.png",
+      "/images/projects/gidisquare/mobile_3.PNG",
+      "/images/projects/gidisquare/mobile_4.PNG",
+      "/images/projects/gidisquare/mobile_5.PNG",
     ],
   },
   {

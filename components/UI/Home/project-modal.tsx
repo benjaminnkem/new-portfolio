@@ -6,6 +6,8 @@ import { gsap } from "@/lib/gsap";
 import { IoCloseOutline } from "react-icons/io5";
 import { higuen } from "@/lib/utils/fonts";
 import type { Project } from "@/lib/data/projects";
+import { splitProjectImages } from "@/lib/utils/project-images";
+import MobileFrame from "./mobile-frame";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -66,6 +68,12 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
   if (!project) return null;
 
+  const { web: webImages, mobile: mobileImages } = splitProjectImages(
+    project.images,
+  );
+  const heroImage = webImages[0] ?? project.images[0];
+  const galleryImages = webImages.slice(1);
+
   return (
     <div
       ref={backdropRef}
@@ -93,7 +101,7 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         <div className="overflow-y-auto max-h-[90vh] hide-scroll">
           <div className="relative w-full aspect-[16/9] md:aspect-[21/9]">
             <Image
-              src={project.images[0]}
+              src={heroImage}
               alt={project.name}
               fill
               className="object-cover"
@@ -150,13 +158,13 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               </div>
             </div>
 
-            {project.images.length > 1 && (
+            {galleryImages.length > 0 && (
               <div className="space-y-4">
                 <h3 className={`${higuen.className} text-2xl text-cWhite`}>
                   Gallery
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {project.images.slice(1).map((src, idx) => (
+                  {galleryImages.map((src, idx) => (
                     <div
                       key={src}
                       className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-white/10"
@@ -170,6 +178,23 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
                         loading="lazy"
                       />
                     </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {mobileImages.length > 0 && (
+              <div className="space-y-4">
+                <h3 className={`${higuen.className} text-2xl text-cWhite`}>
+                  Mobile App
+                </h3>
+                <div className="flex gap-6 overflow-x-auto pb-2 hide-scroll">
+                  {mobileImages.map((src, idx) => (
+                    <MobileFrame
+                      key={src}
+                      src={src}
+                      alt={`${project.name} mobile screenshot ${idx + 1}`}
+                    />
                   ))}
                 </div>
               </div>

@@ -9,6 +9,7 @@ import { higuen } from "@/lib/utils/fonts";
 import Button from "@/components/Common/Button";
 import { PROJECTS } from "@/lib/data/projects";
 import type { Project } from "@/lib/data/projects";
+import { getProjectCoverImage } from "@/lib/utils/project-images";
 import ProjectModal from "./project-modal";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -467,7 +468,7 @@ const Projects = () => {
 
               <div className="relative w-full h-full rounded-[20px] md:rounded-[24px] overflow-hidden group pointer-events-auto m-over">
                 <Image
-                  src={project.images[0]}
+                  src={getProjectCoverImage(project.images)}
                   alt={project.name}
                   className="object-cover md:group-hover:scale-105 transition-transform duration-700 ease-out pointer-events-none"
                   fill
