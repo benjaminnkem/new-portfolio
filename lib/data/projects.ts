@@ -27,6 +27,7 @@ export const PROJECTS: Project[] = [
       "/images/projects/allaccess/1.png",
       "/images/projects/allaccess/2.png",
     ],
+    liveUrl: "https://allaccessfans.co/",
   },
   {
     slug: "gidisquare",
@@ -58,6 +59,7 @@ export const PROJECTS: Project[] = [
       "/images/projects/gidisquare/mobile_4.PNG",
       "/images/projects/gidisquare/mobile_5.PNG",
     ],
+    liveUrl: "https://gidisquare.co.uk/",
   },
   {
     slug: "disux",
@@ -77,6 +79,7 @@ export const PROJECTS: Project[] = [
       "/images/projects/disux/3.png",
       "/images/projects/disux/4.png",
     ],
+    liveUrl: "https://www.disuxchange.com/",
   },
   {
     slug: "monei",
@@ -105,6 +108,7 @@ export const PROJECTS: Project[] = [
       "/images/projects/monei/2.png",
       "/images/projects/monei/3.png",
     ],
+    liveUrl: "https://monei.cc/",
   },
   {
     slug: "ticketwave",
@@ -126,6 +130,7 @@ export const PROJECTS: Project[] = [
       "/images/projects/ticketwave/5.png",
       "/images/projects/ticketwave/6.png",
     ],
+    liveUrl: "https://ticketwave-seven.vercel.app/",
   },
   {
     slug: "stockly",

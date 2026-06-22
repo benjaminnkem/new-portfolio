@@ -125,6 +125,31 @@ const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               {project.description}
             </p>
 
+            {(project.liveUrl || project.githubUrl) && (
+              <div className="flex flex-wrap gap-3">
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="m-over inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-sm font-medium text-cWhite hover:border-green hover:text-green transition-colors"
+                  >
+                    Visit Live Site →
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="m-over inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 text-sm font-medium text-cWhite hover:border-green hover:text-green transition-colors"
+                  >
+                    View on GitHub →
+                  </a>
+                )}
+              </div>
+            )}
+
             <div className="space-y-4">
               <h3 className={`${higuen.className} text-2xl text-cWhite`}>
                 Overview
