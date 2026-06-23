@@ -519,7 +519,7 @@ const Projects = () => {
           </h3>
 
           <p className="text-cWhite/60 max-w-lg mx-auto text-base md:text-lg leading-relaxed">
-            Have an exciting project in mind or looking to hire a full-stack
+            Have an exciting project in mind or looking to hire a software
             engineer? Let's build something exceptional together.
           </p>
         </div>

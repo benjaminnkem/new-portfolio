@@ -82,7 +82,7 @@ const AboutMe = () => {
           </h2>
 
           <p ref={textRef} className="text-cWhite/60 leading-relaxed">
-            I'm Benjamin Nkem (also known as Tochison), a fullstack engineer
+            I'm Benjamin Nkem (also known as Tochison), a software engineer
             focused on building fast, scalable, and visually refined digital
             experiences. I care about both engineering depth and interface
             clarity, making sure every product feels intentional, smooth, and

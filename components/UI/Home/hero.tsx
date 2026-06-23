@@ -141,7 +141,7 @@ const Hero = () => {
           ref={titleRef}
           className={`${higuen.className} text-5xl md:text-7xl lg:text-8xl leading-[0.9]`}
         >
-          Fullstack <br /> Engineer
+          Software <br /> Engineer
         </h2>
 
         <p ref={subRef} className="text-cWhite/60 max-w-xl mx-auto">

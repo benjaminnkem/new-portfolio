@@ -5,7 +5,7 @@ import Providers from "@/lib/providers";
 
 export const metadata: Metadata = {
   title: "Benjamin Nkem (Tochison)",
-  description: "Hi, I'm Benjamin Nkem (Tochison), a Fullstack Web Developer with 5 years of experience",
+  description: "Hi, I'm Benjamin Nkem (Tochison), a Software Engineer with 5 years of experience",
 };
 
 export default function RootLayout({
