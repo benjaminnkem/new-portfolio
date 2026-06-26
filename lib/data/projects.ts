@@ -20,7 +20,7 @@ export const PROJECTS: Project[] = [
     overview: [
       "Led frontend development for AllAccessFans — built the creator dashboard, fan experiences, and subscription flows in Next.js with TypeScript and Tailwind CSS.",
       "Partnered with backend engineers to design and ship new features, translating API contracts into polished, production-ready interfaces.",
-      "Delivered onboarding flows, role-based views for creators and moderators, and Stripe-powered subscription UI across the platform.",
+      "Delivered onboarding flows, role-based views for creators and moderators, and subscription UI across the platform.",
     ],
     technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Zustand"],
     images: [

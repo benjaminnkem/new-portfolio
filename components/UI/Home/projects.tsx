@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { prefersReducedMotion } from "@/lib/gsap";
 import { higuen } from "@/lib/utils/fonts";
 import Button from "@/components/Common/Button";
 import { PROJECTS } from "@/lib/data/projects";
@@ -23,7 +24,7 @@ const SPEED_LINES = Array.from({ length: 14 }, (_, i) => ({
 
 interface AnimationConfig {
   scrollMultiplier: number;
-  scrub: number;
+  scrub: number | boolean;
   mobile: boolean;
 }
 
@@ -41,14 +42,24 @@ const createProjectTimeline = (
   config: AnimationConfig,
   paddedCount: string,
 ) => {
-  const cards = gsap.utils.toArray<HTMLElement>(".project-card");
-  const infos = gsap.utils.toArray<HTMLElement>(".project-info");
-  const glows = gsap.utils.toArray<HTMLElement>(".project-glow");
-  const speedLines = gsap.utils.toArray<HTMLElement>(".speed-line");
+  if (!refs.trigger) return null;
+
+  const cards = gsap.utils.toArray<HTMLElement>(
+    refs.trigger.querySelectorAll(".project-card"),
+  );
+  const infos = gsap.utils.toArray<HTMLElement>(
+    refs.trigger.querySelectorAll(".project-info"),
+  );
+  const glows = gsap.utils.toArray<HTMLElement>(
+    refs.trigger.querySelectorAll(".project-glow"),
+  );
+  const speedLines = gsap.utils.toArray<HTMLElement>(
+    refs.trigger.querySelectorAll(".speed-line"),
+  );
 
   if (!cards.length) return null;
 
-  const overlap = config.mobile ? 0.42 : 0.38;
+  const overlap = config.mobile ? 0.35 : 0.38;
   const cardSpan = 1;
   const totalSpan = (cards.length - 1) * (cardSpan - overlap) + cardSpan;
 
@@ -59,11 +70,13 @@ const createProjectTimeline = (
       end: `+=${Math.round(totalSpan * config.scrollMultiplier)}%`,
       scrub: config.scrub,
       pin: true,
-      anticipatePin: 1,
+      pinSpacing: true,
+      anticipatePin: config.mobile ? 0 : 1,
+      fastScrollEnd: config.mobile,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const index = Math.min(
-          Math.floor(self.progress * cards.length),
+          Math.round(self.progress * (cards.length - 1)),
           cards.length - 1,
         );
         if (refs.progress) {
@@ -132,52 +145,55 @@ const createProjectTimeline = (
     const exitStart = start + cardSpan * (config.mobile ? 0.44 : 0.48);
 
     if (config.mobile) {
+      if (idx === 0) {
+        gsap.set(card, { opacity: 1, scale: 1, y: 0, zIndex: 10 });
+      } else {
+        gsap.set(card, { opacity: 0, scale: 0.94, y: 28, zIndex: 1 });
+      }
+
       tl.fromTo(
         card,
-        {
-          scale: 0.9,
-          y: 40,
-          opacity: 0,
-          visibility: "hidden",
-          pointerEvents: "none",
-        },
+        { scale: 0.94, y: 28, opacity: 0 },
         {
           scale: 1,
           y: 0,
           opacity: 1,
-          visibility: "visible",
-          pointerEvents: "auto",
-          duration: cardSpan * 0.38,
-          ease: "power3.out",
+          duration: cardSpan * 0.4,
+          ease: "power2.out",
+          force3D: true,
         },
         start,
       );
 
+      tl.set(card, { zIndex: 10 }, start + 0.01);
+
       if (info) {
         tl.fromTo(
           info,
-          { y: 24, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.22, ease: "power3.out" },
-          enterEnd - 0.1,
+          { y: 16, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.2, ease: "power2.out" },
+          enterEnd - 0.08,
         ).to(
           info,
-          { y: -16, opacity: 0, duration: 0.18, ease: "power2.in" },
-          exitStart + 0.06,
+          { y: -12, opacity: 0, duration: 0.16, ease: "power2.in" },
+          exitStart + 0.04,
         );
       }
 
       tl.to(
         card,
         {
-          scale: 0.94,
-          y: -32,
+          scale: 0.96,
+          y: -20,
           opacity: 0,
-          pointerEvents: "none",
-          duration: cardSpan * 0.48,
+          duration: cardSpan * 0.42,
           ease: "power2.in",
+          force3D: true,
         },
         exitStart,
       );
+
+      tl.set(card, { zIndex: 1 }, exitStart + cardSpan * 0.42);
     } else {
       tl.fromTo(
         card,
@@ -288,7 +304,9 @@ const createProjectTimeline = (
       });
     }
 
-    tl.set(card, { visibility: "hidden" }, start + cardSpan);
+    if (!config.mobile) {
+      tl.set(card, { visibility: "hidden" }, start + cardSpan);
+    }
   });
 
   if (!config.mobile && refs.speedLines) {
@@ -318,6 +336,8 @@ const Projects = () => {
 
   useGSAP(
     () => {
+      if (prefersReducedMotion()) return;
+
       const refs = {
         trigger: triggerRef.current,
         bg: bgRef.current,
@@ -341,8 +361,8 @@ const Projects = () => {
 
       mm.add("(max-width: 767px)", () => {
         createProjectTimeline(refs, {
-          scrollMultiplier: 90,
-          scrub: 0.3,
+          scrollMultiplier: 100,
+          scrub: true,
           mobile: true,
         }, paddedCount);
       });
@@ -359,7 +379,7 @@ const Projects = () => {
     >
       <div
         ref={triggerRef}
-        className="h-[100dvh] w-full relative flex items-center justify-center overflow-hidden md:[perspective:1400px]"
+        className="h-[100svh] md:h-[100dvh] w-full relative flex items-center justify-center overflow-hidden touch-pan-y md:[perspective:1400px]"
       >
         <div
           ref={bgRef}
@@ -458,7 +478,7 @@ const Projects = () => {
           {PROJECTS.map((project) => (
             <div
               key={project.slug}
-              className="project-card absolute w-[88vw] h-[52dvh] md:w-[46vw] md:h-[56vh] max-w-[620px] max-h-[430px] rounded-[20px] md:rounded-[24px] overflow-visible border border-white/10 bg-[#0c0c0c] select-none pointer-events-none will-change-transform"
+              className="project-card absolute w-[88vw] h-[52svh] md:w-[46vw] md:h-[56vh] max-w-[620px] max-h-[430px] rounded-[20px] md:rounded-[24px] overflow-visible border border-white/10 bg-[#0c0c0c] select-none pointer-events-none md:will-change-transform"
               style={{ transformStyle: "preserve-3d" }}
             >
               <div

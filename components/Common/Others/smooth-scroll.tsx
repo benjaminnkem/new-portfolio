@@ -2,11 +2,22 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import {
+  ScrollTrigger,
+  isTouchDevice,
+  prefersReducedMotion,
+  setupNativeMobileScroll,
+} from "@/lib/gsap";
 
 const SmoothScroll = () => {
   useEffect(() => {
     if (prefersReducedMotion()) return;
+
+    if (isTouchDevice()) {
+      setupNativeMobileScroll();
+      ScrollTrigger.refresh();
+      return;
+    }
 
     const lenis = new Lenis();
 
