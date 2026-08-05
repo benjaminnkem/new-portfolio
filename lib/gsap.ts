@@ -1,9 +1,10 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-export { gsap, ScrollTrigger };
+export { gsap, ScrollTrigger, ScrollSmoother };
 
 export const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
@@ -26,3 +27,5 @@ export const setupNativeMobileScroll = () => {
 
   mobileScrollConfigured = true;
 };
+
+export const getScrollSmoother = () => ScrollSmoother.get();

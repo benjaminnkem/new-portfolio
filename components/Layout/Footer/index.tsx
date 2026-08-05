@@ -1,32 +1,24 @@
-import { FaFacebook } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
-import { AiFillInstagram } from "react-icons/ai";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa";
+import { HiOutlineDownload, HiOutlineMail } from "react-icons/hi";
 import Link from "next/link";
 import { higuen } from "@/lib/utils/fonts";
 import React from "react";
+import {
+  RESUME_FILENAME,
+  RESUME_PATH,
+  SOCIAL_LINKS,
+} from "@/lib/data/experience";
 
-const socials: { link: string; icon: React.ReactNode }[] = [
+const socials: { link: string; icon: React.ReactNode; label: string }[] = [
   {
-    link: "https://www.github.com/",
+    link: SOCIAL_LINKS.github,
     icon: <FaGithub className="text-black-main" size={20} />,
+    label: "GitHub",
   },
   {
-    link: "https://www.facebook.com/",
-    icon: <FaFacebook className="text-black-main" size={20} />,
-  },
-  {
-    link: "https://www.instagram.com/",
-    icon: <AiFillInstagram className="text-black-main" size={20} />,
-  },
-  {
-    link: "https://www.twitter.com/",
-    icon: <FaSquareXTwitter className="text-black-main" size={20} />,
-  },
-  {
-    link: "https://www.linkedin.com/",
-    icon: <FaLinkedin className="text-black-main" size={20} />,
+    link: SOCIAL_LINKS.email,
+    icon: <HiOutlineMail className="text-black-main" size={20} />,
+    label: "Email",
   },
 ];
 
@@ -49,10 +41,10 @@ const Footer = () => {
         ></path>
       </svg> */}
 
-      <div className="h-[5rem] flex items-center bg-green text-black-main">
-        <div className="flex items-center justify-between container">
+      <div className="min-h-[5rem] py-4 flex items-center bg-green text-black-main">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 container">
           <div className="flex items-center gap-3">
-            <div className="size-9 rounded-full m-over bg-black-main text-green flex items-center justify-center font-semibold">
+            <div className="size-9 rounded-full m-over bg-black-main text-green flex items-center justify-center font-semibold shrink-0">
               <p>BN.</p>
             </div>
 
@@ -62,20 +54,32 @@ const Footer = () => {
             </div>
           </div>
 
-          <ul className="flex items-center gap-3">
-            {socials.map(({ icon, link }, index) => (
-              <li key={index}>
-                <Link
-                  href={link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-green"
-                >
-                  <div>{icon}</div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="flex items-center gap-4">
+            <a
+              href={RESUME_PATH}
+              download={RESUME_FILENAME}
+              className="m-over inline-flex items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline"
+            >
+              <HiOutlineDownload size={16} />
+              Resume
+            </a>
+
+            <ul className="flex items-center gap-3">
+              {socials.map(({ icon, link, label }) => (
+                <li key={label}>
+                  <Link
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="text-green"
+                  >
+                    <div>{icon}</div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </footer>

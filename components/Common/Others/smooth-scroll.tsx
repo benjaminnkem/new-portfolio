@@ -1,17 +1,24 @@
 "use client";
 
-import { useEffect } from "react";
-import Lenis from "lenis";
+import { ReactNode, useLayoutEffect } from "react";
 import {
+  ScrollSmoother,
   ScrollTrigger,
   isTouchDevice,
   prefersReducedMotion,
   setupNativeMobileScroll,
 } from "@/lib/gsap";
 
-const SmoothScroll = () => {
-  useEffect(() => {
-    if (prefersReducedMotion()) return;
+type Props = {
+  children: ReactNode;
+};
+
+const SmoothScroll = ({ children }: Props) => {
+  useLayoutEffect(() => {
+    if (prefersReducedMotion()) {
+      ScrollTrigger.refresh();
+      return;
+    }
 
     if (isTouchDevice()) {
       setupNativeMobileScroll();
@@ -19,47 +26,30 @@ const SmoothScroll = () => {
       return;
     }
 
-    const lenis = new Lenis();
+    ScrollSmoother.get()?.kill();
 
-    lenis.on("scroll", ScrollTrigger.update);
-
-    let rafId = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-
-    ScrollTrigger.scrollerProxy(document.documentElement, {
-      scrollTop(value) {
-        if (arguments.length && value !== undefined) {
-          lenis.scrollTo(value, { immediate: true });
-        }
-        return lenis.scroll;
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        };
-      },
+    const smoother = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1.15,
+      effects: true,
+      ignoreMobileResize: true,
     });
 
-    const onRefresh = () => lenis.resize();
-    ScrollTrigger.addEventListener("refresh", onRefresh);
-    ScrollTrigger.refresh();
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
 
     return () => {
-      cancelAnimationFrame(rafId);
-      ScrollTrigger.removeEventListener("refresh", onRefresh);
-      ScrollTrigger.scrollerProxy(document.documentElement, {});
-      lenis.destroy();
+      smoother.kill();
     };
   }, []);
 
-  return null;
+  return (
+    <div id="smooth-wrapper">
+      <div id="smooth-content">{children}</div>
+    </div>
+  );
 };
 
 export default SmoothScroll;

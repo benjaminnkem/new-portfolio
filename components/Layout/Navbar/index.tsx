@@ -59,6 +59,12 @@ const Navbar = () => {
               About
             </Link>
             <Link
+              href="#experience"
+              className="hover:text-green transition-colors"
+            >
+              Experience
+            </Link>
+            <Link
               href="#services"
               className="hover:text-green transition-colors"
             >
@@ -100,12 +106,30 @@ const Navbar = () => {
           <Link href="/#about" onClick={() => updateIsMenuOpen(false)}>
             About
           </Link>
+          <Link href="/#experience" onClick={() => updateIsMenuOpen(false)}>
+            Experience
+          </Link>
           <Link href="/#services" onClick={() => updateIsMenuOpen(false)}>
             Services
           </Link>
           <Link href="/#projects" onClick={() => updateIsMenuOpen(false)}>
             Projects
           </Link>
+          <a
+            href="https://github.com/benjaminnkem"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => updateIsMenuOpen(false)}
+          >
+            GitHub
+          </a>
+          <a
+            href="/pdf/Benjamin_Nkem_Resume_Main.pdf"
+            download="Benjamin_Nkem_Resume.pdf"
+            onClick={() => updateIsMenuOpen(false)}
+          >
+            Resume
+          </a>
           <Link href="/#contact" onClick={() => updateIsMenuOpen(false)}>
             Contact
           </Link>

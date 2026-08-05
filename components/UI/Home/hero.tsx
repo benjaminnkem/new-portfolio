@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { higuen } from "@/lib/utils/fonts";
+import { FaGithub } from "react-icons/fa";
+import { SOCIAL_LINKS } from "@/lib/data/experience";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -150,15 +152,31 @@ const Hero = () => {
         </p>
 
         <div className="flex items-center justify-center gap-6 pt-6">
-          <button className="px-6 py-3 bg-green text-black-main rounded-full hover:scale-105 transition-transform">
+          <a
+            href="#projects"
+            className="m-over px-6 py-3 bg-green text-black-main rounded-full hover:scale-105 transition-transform font-medium"
+          >
             View Projects
-          </button>
+          </a>
 
-          <button className="text-cWhite/70 hover:text-green transition-colors">
-            Contact →
-          </button>
+          <a
+            href="#experience"
+            className="m-over text-cWhite/70 hover:text-green transition-colors"
+          >
+            Experience →
+          </a>
         </div>
       </div>
+
+      <a
+        href={SOCIAL_LINKS.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub profile"
+        className="m-over absolute bottom-8 right-6 md:bottom-10 md:right-10 z-20 flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.04] text-cWhite/70 backdrop-blur-sm transition-colors hover:border-green hover:text-green hover:bg-green/10"
+      >
+        <FaGithub size={20} />
+      </a>
     </header>
   );
 };

@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/UI/Home/hero";
 import AboutMe from "@/components/UI/Home/about";
 import Stripes from "@/components/UI/Home/stripes";
+import Experience from "@/components/UI/Home/experience";
 import Services from "@/components/UI/Home/services";
 
 const Projects = dynamic(() => import("@/components/UI/Home/projects"), {
@@ -16,6 +17,7 @@ const Page = () => (
     <main>
       <AboutMe />
       <Stripes />
+      <Experience />
       <Services />
       <Projects />
     </main>

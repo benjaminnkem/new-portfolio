@@ -89,14 +89,31 @@ const AboutMe = () => {
             usable.
           </p>
 
-          <a
-            href="https://wa.me/2348133961439"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="m-over mt-4 inline-block px-6 py-3 rounded-full border border-white/20 hover:border-green hover:text-green transition-colors"
-          >
-            Hire Me
-          </a>
+          <div className="flex flex-wrap items-center gap-3 mt-4">
+            <a
+              href="https://wa.me/2348133961439"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="m-over inline-block px-6 py-3 rounded-full border border-white/20 hover:border-green hover:text-green transition-colors"
+            >
+              Hire Me
+            </a>
+            <a
+              href="/pdf/Benjamin_Nkem_Resume_Main.pdf"
+              download="Benjamin_Nkem_Resume.pdf"
+              className="m-over inline-block px-6 py-3 rounded-full bg-green text-black-main font-medium hover:scale-[1.03] transition-transform"
+            >
+              Download Resume
+            </a>
+            <a
+              href="https://github.com/benjaminnkem"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="m-over inline-block px-6 py-3 rounded-full border border-white/20 hover:border-green hover:text-green transition-colors"
+            >
+              GitHub
+            </a>
+          </div>
         </div>
 
         <div
