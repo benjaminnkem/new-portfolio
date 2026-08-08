@@ -124,7 +124,7 @@ const Navbar = () => {
             GitHub
           </a>
           <a
-            href="/pdf/Benjamin_Nkem_Resume_Main.pdf"
+            href="/pdf/Benjamin_Nkem_Resume.pdf"
             download="Benjamin_Nkem_Resume.pdf"
             onClick={() => updateIsMenuOpen(false)}
           >

@@ -15,7 +15,7 @@ export interface ExperienceRole {
   accent?: string;
 }
 
-export const RESUME_PATH = "/pdf/Benjamin_Nkem_Resume_Main.pdf";
+export const RESUME_PATH = "/pdf/Benjamin_Nkem_Resume.pdf";
 export const RESUME_FILENAME = "Benjamin_Nkem_Resume.pdf";
 
 export const SOCIAL_LINKS = {
@@ -28,32 +28,60 @@ export const employment: ExperienceRole[] = [
   {
     id: "gidisquare",
     type: "full-time",
-    title: "Full Stack Engineer",
+    title: "Lead Backend Engineer",
     company: "GidiSquare",
     location: "Remote",
-    period: "Jul 2025 — Ju 2026",
+    period: "Jul 2025 — Jul 2026",
     startLabel: "Jul '25",
     endLabel: "Jul '26",
     summary:
-      "Built and scaled core backend, mobile, and admin systems for a multi-vendor marketplace spanning products, listings, and professional services.",
+      "Led backend architecture and delivery for a multi-vendor marketplace — services, APIs, and data systems for products, listings, and professional services.",
     highlights: [
-      "Developed and maintained core backend services with NestJS, Node.js, and MongoDB for marketplace operations, user management, products, listings, and service transactions.",
-      "Designed scalable REST APIs, authentication, authorization, and business logic for web and mobile clients.",
-      "Built React Native features for buyers, sellers, and service providers with responsive, user-friendly flows.",
-      "Maintained the Next.js admin dashboard for platform management, analytics, moderation, and support operations.",
-      "Integrated payment gateways, notifications, cloud storage, and external APIs.",
-      "Optimized database queries, API performance, and architecture for growth under increasing load.",
-      "Implemented monitoring, logging, validation, and security practices for reliability and maintainability.",
+      "Led design and development of core backend services with NestJS, Node.js, and MongoDB for marketplace operations, user management, products, listings, and service transactions.",
+      "Architected scalable REST APIs, authentication, authorization, and domain business logic for web and mobile clients.",
+      "Defined backend standards, code review practices, and technical direction across marketplace service workstreams.",
+      "Integrated payment gateways, notifications, cloud storage, and external APIs into production services.",
+      "Optimized database queries, API performance, and service architecture to support growth under increasing load.",
+      "Implemented monitoring, logging, validation, and security best practices for reliability and maintainability.",
+      "Collaborated with product, mobile, and frontend teams to ship backend capabilities for buyers, sellers, and service providers.",
     ],
     technologies: [
       "NestJS",
       "Node.js",
       "TypeScript",
       "MongoDB",
-      "React Native",
-      "Next.js",
       "REST APIs",
       "JWT",
+      "Cloud Services",
+      "CI/CD",
+    ],
+  },
+  {
+    id: "squad-gtco",
+    type: "full-time",
+    title: "Backend Engineer",
+    company: "Squad GTCO (Guaranty Trust Bank)",
+    location: "Remote",
+    period: "Jun 2025 — Sep 2025",
+    startLabel: "Jun '25",
+    endLabel: "Sep '25",
+    summary:
+      "Built backend systems for a buy-now-pay-later (BNPL) product — APIs, payment flows, and service reliability in a regulated fintech environment.",
+    highlights: [
+      "Developed and maintained backend services powering a buy-now-pay-later product for installment-based purchases.",
+      "Designed and implemented APIs and business logic for eligibility, installment schedules, repayments, and transaction state.",
+      "Integrated with internal banking and payment systems while following security and compliance expectations for fintech workloads.",
+      "Improved reliability through validation, error handling, logging, and careful handling of financial edge cases.",
+      "Collaborated with product and engineering stakeholders to ship BNPL features from design through production readiness.",
+    ],
+    technologies: [
+      "Node.js",
+      "TypeScript",
+      "NestJS",
+      "REST APIs",
+      "Fintech",
+      "Payments",
+      "MongoDB",
       "CI/CD",
     ],
   },

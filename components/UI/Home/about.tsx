@@ -99,7 +99,7 @@ const AboutMe = () => {
               Hire Me
             </a>
             <a
-              href="/pdf/Benjamin_Nkem_Resume_Main.pdf"
+              href="/pdf/Benjamin_Nkem_Resume.pdf"
               download="Benjamin_Nkem_Resume.pdf"
               className="m-over inline-block px-6 py-3 rounded-full bg-green text-black-main font-medium hover:scale-[1.03] transition-transform"
             >
