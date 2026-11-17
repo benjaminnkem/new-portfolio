@@ -1,27 +1,5 @@
-import dynamic from "next/dynamic";
-import Hero from "@/components/UI/Home/hero";
-import AboutMe from "@/components/UI/Home/about";
-import Stripes from "@/components/UI/Home/stripes";
-import Experience from "@/components/UI/Home/experience";
-import Services from "@/components/UI/Home/services";
+import Journey from "@/components/journey/journey";
 
-const Projects = dynamic(() => import("@/components/UI/Home/projects"), {
-  loading: () => (
-    <section id="projects" className="h-[100dvh] bg-[#050505]" />
-  ),
-});
-
-const Page = () => (
-  <>
-    <Hero />
-    <main>
-      <AboutMe />
-      <Stripes />
-      <Experience />
-      <Services />
-      <Projects />
-    </main>
-  </>
-);
+const Page = () => <Journey />;
 
 export default Page;
