@@ -68,7 +68,7 @@ export function Response({ onPrinted }: { onPrinted: () => void }) {
           <div className="t-tear" />
           <div className="t-bottom">
             <div className="qr">
-              <canvas ref={qrRef} role="img" aria-label="QR code linking to my GitHub" />
+              <canvas ref={qrRef} role="img" aria-label="QR code that starts an email to me" />
             </div>
             <p>scan to reach me.<br />or keep scrolling.</p>
           </div>

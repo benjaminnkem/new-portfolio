@@ -68,7 +68,8 @@ const FAR: Record<string, Key> = {
   off: { y: 0, d: 37, r: 1.25, p: 6.5, dim: 0.78 },
   hire: { y: 0, d: 39, r: 1.4, p: 6.5, dim: 0.7 },
 };
-const BLOCK = "a,button,input,label,.cap,.panel,.term,.phone,.ticket,.log,.mesh,.hud,.focus-panel";
+// clicks on these never reach the stack (the footer and its globe sit above the stack's canvas)
+const BLOCK = "a,button,input,label,.cap,.panel,.term,.phone,.ticket,.log,.mesh,.hud,.focus-panel,.skills,footer";
 const HEX = { ground: "#0B0D0C", surface: "#111412", line: "#262B27", muted: "#8A918B", ink: "#E8EAE6", accent: "#B6F36A" };
 
 const smooth = (t: number) => t * t * (3 - 2 * t);

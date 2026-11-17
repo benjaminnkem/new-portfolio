@@ -16,7 +16,7 @@ const COMMANDS: Record<string, () => ReactNode> = {
   hire: () => (
     <>
       good choice.{"\n"}
-      email     {CONTACT.email}
+      email     {link(`mailto:${CONTACT.email}`, CONTACT.email)}
       {"\n"}whatsapp  {link(CONTACT.whatsapp, "message me")}
       {"\n"}resume    {link(CONTACT.resume, "benjamin_nkem_resume.pdf")}
     </>

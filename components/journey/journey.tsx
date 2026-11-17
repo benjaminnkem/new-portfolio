@@ -6,6 +6,7 @@ import { CONTACT, LAYERS, PROJECTS } from "@/lib/journey/data";
 import { Founder, OffClock, Quests, Response } from "./chapters";
 import Terminal from "./terminal";
 import Skills from "./skills";
+import GlobeFooter from "./globe";
 import { Ph } from "./ph";
 import "./journey.css";
 
@@ -235,7 +236,7 @@ export default function Journey() {
                 <li><a className="btn primary" href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer">message on whatsapp ↗</a></li>
                 <li><a className="btn" href={CONTACT.resume} target="_blank" rel="noopener noreferrer">resume (pdf) ↗</a></li>
                 <li><a className="btn" href={CONTACT.github} target="_blank" rel="noopener noreferrer">github ↗</a></li>
-                <li><span className="btn static"><Ph text={CONTACT.email} /></span></li>
+                <li><a className="btn" href={`mailto:${CONTACT.email}`}>email me</a></li>
               </ul>
             </div>
             <Terminal />
@@ -243,12 +244,7 @@ export default function Journey() {
         </section>
       </main>
 
-      <footer>
-        <div className="wrap">
-          <span className="label">tochison_ · benjamin nkem</span>
-          <span className="label">phone · web · api · data</span>
-        </div>
-      </footer>
+      <GlobeFooter />
     </div>
   );
 }

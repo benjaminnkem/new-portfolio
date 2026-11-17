@@ -39,7 +39,8 @@
 @media (max-width: 640px) { .trace .verb, .trace .path { display: none; } .hops li { padding: 3px 6px; font-size: 10px; } }
 
 .journey main { position: relative; z-index: 10; transition: opacity .25s; }
-.focusing main, .focusing .bigword { opacity: 0 !important; pointer-events: none; }
+.journey .signoff { transition: opacity .25s; }
+.focusing main, .focusing .bigword, .focusing .signoff { opacity: 0 !important; pointer-events: none; }
 .wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
 /* hero */
@@ -266,8 +267,24 @@
 .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0 var(--space-4) var(--space-4); }
 .chips button { font-family: var(--mono); font-size: 12px; background: var(--raised); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-sm); min-height: 40px; padding: 0 var(--space-3); cursor: pointer; }
 .chips button:hover { border-color: var(--muted); }
-.journey footer { padding-block: var(--space-12); position: relative; z-index: 10; }
-.journey footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-4); }
+/* footer sign-off: a dotted globe rising like a horizon */
+.signoff { position: relative; z-index: 10; background: var(--ground); border-top: 1px solid var(--line); overflow: hidden; }
+.signoff-row { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-6); flex-wrap: wrap; padding-top: var(--space-12); }
+.signoff-block { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+.signoff-block.right { align-items: flex-end; text-align: right; }
+.signoff .wordmark { font-size: 28px; }
+.signoff-time { display: flex; align-items: baseline; gap: var(--space-2); margin: 0; }
+.signoff-time .t { font-family: var(--mono); font-weight: 800; font-size: 28px; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.signoff-mail { font-family: var(--mono); font-size: 13px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.signoff-mail:hover { border-color: var(--ink); }
+.globe { position: relative; height: clamp(260px, 34vw, 420px); margin-top: calc(var(--space-8) * -1); }
+.globe canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; cursor: grab; }
+.globe canvas:active { cursor: grabbing; }
+.signoff-base { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap; padding-block: var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); background: var(--ground); }
+@media (max-width: 640px) {
+  .signoff-block.right { align-items: flex-start; text-align: left; }
+  .globe { height: 240px; margin-top: 0; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .blink, .ticket-btn .dot { animation: none !important; }

@@ -241,8 +241,9 @@ export const TRACKS = [
 export const CONTACT = {
   github: "https://github.com/benjaminnkem",
   whatsapp: "https://wa.me/2348133961439",
-  email: "[your email]",
+  email: "benjaminnkemfrancis@gmail.com",
   resume: "/pdf/Benjamin_Nkem_Resume.pdf",
 };
 
-export const TICKET_QR = CONTACT.github;
+// scanning the ticket opens a new email to me
+export const TICKET_QR = `mailto:${CONTACT.email}`;
