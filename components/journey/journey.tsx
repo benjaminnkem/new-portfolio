@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { FocusState, JourneyApi } from "@/lib/journey/engine";
-import { LAYERS, PROJECTS } from "@/lib/journey/data";
+import { CONTACT, LAYERS, PROJECTS } from "@/lib/journey/data";
 import { Founder, OffClock, Quests, Response } from "./chapters";
 import Terminal from "./terminal";
 import Skills from "./skills";
@@ -92,9 +92,18 @@ export default function Journey() {
     return () => removeEventListener("scroll", onScroll);
   }, []);
 
+  // move keyboard focus into the panel on open, and back to whatever opened it once the card has landed
   const isOpen = focus !== null;
+  const trigger = useRef<HTMLElement | null>(null);
   useEffect(() => {
-    if (isOpen) closeRef.current?.focus({ preventScroll: true });
+    if (isOpen) {
+      const active = document.activeElement as HTMLElement | null;
+      trigger.current = active && active !== document.body ? active : null;
+      closeRef.current?.focus({ preventScroll: true });
+    } else {
+      trigger.current?.focus({ preventScroll: true });
+      trigger.current = null;
+    }
   }, [isOpen]);
 
   const getTicket = () => {
@@ -137,7 +146,7 @@ export default function Journey() {
       {focused && focus && (
         <div className="focus">
           <div className="wrap">
-            <div className="focus-panel cap" role="dialog" aria-label={`${focused.name} details`}>
+            <div className={`focus-panel cap${focus.closing ? " closing" : ""}`} role="dialog" aria-label={`${focused.name} details`}>
               <ProjectCaption project={focused} />
               <div className="focus-ctrl">
                 <button type="button" onClick={() => api.current?.go(-1)} disabled={focus.count < 2} aria-label="previous project on this layer">←</button>
@@ -157,8 +166,8 @@ export default function Journey() {
               <BootLines />
               <h1 className="name">tochison<span className="cursor blink">_</span></h1>
               <p className="thesis">
-                software engineer in lagos, founder of wetinnext. frontend, backend, product: i take ideas all the way
-                to people&apos;s hands. <b>tap the button and follow your request through everything i build.</b>
+                software engineer in lagos and founder of wetinnext. i take products from idea to people&apos;s hands.{" "}
+                <b>tap get ticket and follow your request through everything i build.</b>
               </p>
               <p className="hint label">or just scroll ↓</p>
             </div>
@@ -217,7 +226,18 @@ export default function Journey() {
         <OffClock />
 
         <section className="chapter" id="hire" data-far="hire">
-          <div className="wrap">
+          <div className="wrap hire">
+            <div className="hire-copy">
+              <p className="label">$ hire tochison</p>
+              <h2>got something to build?</h2>
+              <p>open to full-time roles and freelance builds. web, backend, or the whole product.</p>
+              <ul className="contact">
+                <li><a className="btn primary" href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer">message on whatsapp ↗</a></li>
+                <li><a className="btn" href={CONTACT.resume} target="_blank" rel="noopener noreferrer">resume (pdf) ↗</a></li>
+                <li><a className="btn" href={CONTACT.github} target="_blank" rel="noopener noreferrer">github ↗</a></li>
+                <li><span className="btn static"><Ph text={CONTACT.email} /></span></li>
+              </ul>
+            </div>
             <Terminal />
           </div>
         </section>

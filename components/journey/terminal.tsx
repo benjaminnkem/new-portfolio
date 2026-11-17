@@ -58,7 +58,7 @@ export default function Terminal() {
         <span className="label">try: hire</span>
       </div>
       <div className="term-body" ref={bodyRef} aria-live="polite">
-        <p className="out">open to full-time roles and freelance builds. type a command or tap one below.</p>
+        <p className="out">prefer the terminal? type a command or tap one below.</p>
         {lines.map((l, i) => (
           <div key={i}>
             <p className="echo">$ {l.cmd}</p>

@@ -25,7 +25,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      {/* extensions like Grammarly add attributes to <body> before React hydrates */}
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

@@ -48,7 +48,7 @@ export function Response({ onPrinted }: { onPrinted: () => void }) {
   }, [onPrinted]);
 
   return (
-    <section ref={sectionRef} className="chapter response" id="response" data-far="response" data-word="200.">
+    <section ref={sectionRef} className="chapter response" id="response" data-far="response">
       <div className="wrap">
         <div>
           <p className="label">response · 4 hops · back to your phone</p>
@@ -83,10 +83,13 @@ export function Founder() {
   return (
     <section className="chapter" id="founder" data-far="founder">
       <div className="wrap">
-        <div className="panel founder-grid">
-          <div className="founder-copy">
+        <div className="panel founder">
+          <div className="founder-head">
             <p className="label">founder mode</p>
             <h2>i don&apos;t just build for founders. i am one.</h2>
+          </div>
+          <div className="founder-grid">
+          <div className="founder-copy">
             <p>{WETINNEXT.pitch}</p>
             <p><Ph text={WETINNEXT.why} /></p>
             <ul className="facts">
@@ -102,10 +105,11 @@ export function Founder() {
           <div className="shots">
             {WETINNEXT.screens.map((s) => (
               <figure className="shot" key={s.src}>
-                <Image src={s.src} alt={s.alt} width={631} height={760} sizes="(max-width: 820px) 30vw, 180px" />
+                <Image src={s.src} alt={s.alt} width={631} height={760} sizes="(max-width: 820px) 30vw, 240px" />
                 <figcaption className="label">{s.label}</figcaption>
               </figure>
             ))}
+          </div>
           </div>
         </div>
       </div>
