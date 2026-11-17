@@ -62,6 +62,7 @@ const FAR: Record<string, Key> = {
   hero: { y: 0.4, d: 30, r: -0.55, p: 6.5 },
   response: { y: 0, d: 27, r: 0.75, p: 6.5 },
   founder: { y: 0, d: 33, r: 0.95, p: 6.5 },
+  stack: { y: 0, d: 34, r: 1.02, p: 6.5 },
   quests: { y: 0, d: 35, r: 1.1, p: 6.5 },
   off: { y: 0, d: 37, r: 1.25, p: 6.5 },
   hire: { y: 0, d: 39, r: 1.4, p: 6.5 },

@@ -129,6 +129,72 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+/*
+ * Skills. `match` lists words to look for in a project's stack and blurb, so hovering a
+ * tool can show where it actually shipped. Without `match`, the tool's own name is used.
+ */
+export type Skill = { name: string; match?: string[] };
+export type SkillGroup = { title: string; items: Skill[] };
+
+export const CORE_SKILLS = ["next.js", "react", "typescript", "node.js", "nestjs"];
+
+export const SKILL_GROUPS: SkillGroup[] = [
+  {
+    title: "frontend",
+    items: [
+      { name: "next.js" }, { name: "react", match: ["react", "next.js"] }, { name: "typescript" }, { name: "javascript" },
+      { name: "html5" }, { name: "css3" }, { name: "tailwind css" }, { name: "sass" }, { name: "shadcn/ui" },
+      { name: "framer motion" }, { name: "gsap" }, { name: "three.js", match: ["three"] },
+    ],
+  },
+  {
+    title: "backend",
+    items: [
+      { name: "node.js", match: ["node", "nestjs"] }, { name: "nestjs" }, { name: "express.js" }, { name: "rest apis" },
+      { name: "api architecture" }, { name: "auth & authorization" },
+      { name: "websockets & streaming", match: ["socket.io", "ai sdk", "live chat"] }, { name: "socket.io" }, { name: "bullmq" },
+      { name: "third-party apis", match: ["stripe"] },
+    ],
+  },
+  {
+    title: "databases & orms",
+    items: [
+      { name: "postgresql", match: ["postgres"] }, { name: "mysql" }, { name: "mongodb" }, { name: "redis" }, { name: "typeorm" },
+      { name: "prisma" }, { name: "mongoose" },
+    ],
+  },
+  {
+    title: "libraries & state",
+    items: [
+      { name: "tanstack query" }, { name: "react hook form" }, { name: "zod" }, { name: "class-validator" },
+      { name: "class-transformer" }, { name: "ai sdk" },
+    ],
+  },
+  {
+    title: "tools",
+    items: [{ name: "git" }, { name: "github" }, { name: "docker" }, { name: "swagger / openapi" }, { name: "postman" }],
+  },
+  {
+    title: "integrations",
+    items: [
+      { name: "stripe" }, { name: "paystack" }, { name: "paypal" }, { name: "payment gateways", match: ["stripe", "payments", "payouts"] },
+      { name: "webhooks" }, { name: "ai features", match: ["ai sdk", "ai assistant"] }, { name: "cloudflare" },
+    ],
+  },
+];
+
+/** Shipped projects whose stack or blurb mentions the skill, one entry per project name. */
+export const shippedWith = (skill: Skill) => {
+  const words = skill.match ?? [skill.name];
+  const names = PROJECTS.filter((p) => {
+    const text = `${p.stack} ${p.blurb}`.toLowerCase();
+    return words.some((w) => text.includes(w));
+  }).map((p) => p.name);
+  // "gidisquare app" and "gidisquare" are one product
+  const unique = [...new Set(names)];
+  return unique.filter((n) => !unique.some((o) => o !== n && n.startsWith(`${o} `)));
+};
+
 export const WETINNEXT = {
   url: "https://wetinnext.com/",
   pitch:

@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, ReactNode, useEffect, useRef, useState } from "react";
-import { CONTACT, HACKATHONS } from "@/lib/journey/data";
+import { CONTACT, HACKATHONS, SKILL_GROUPS } from "@/lib/journey/data";
 
 type Line = { cmd: string; out: ReactNode };
 
@@ -21,8 +21,7 @@ const COMMANDS: Record<string, () => ReactNode> = {
       {"\n"}resume    {link(CONTACT.resume, "benjamin_nkem_resume.pdf")}
     </>
   ),
-  stack: () =>
-    "web     next.js, react, typescript, gsap, three.js\napi     nestjs, node, stripe, bullmq, socket.io\ndata    postgres, mysql, mongodb, redis",
+  stack: () => SKILL_GROUPS.map((g) => `${g.title.padEnd(19)}${g.items.map((s) => s.name).join(", ")}`).join("\n"),
   wins: () => HACKATHONS.map((h) => `${h.result.padEnd(6)}${h.name}`).join("\n"),
   github: () => link(CONTACT.github, "github.com/benjaminnkem"),
   resume: () => link(CONTACT.resume, "benjamin_nkem_resume.pdf"),

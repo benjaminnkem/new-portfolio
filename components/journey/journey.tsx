@@ -5,6 +5,7 @@ import type { FocusState, JourneyApi } from "@/lib/journey/engine";
 import { LAYERS, PROJECTS } from "@/lib/journey/data";
 import { Founder, OffClock, Quests, Response } from "./chapters";
 import Terminal from "./terminal";
+import Skills from "./skills";
 import { Ph } from "./ph";
 import "./journey.css";
 
@@ -156,8 +157,8 @@ export default function Journey() {
               <BootLines />
               <h1 className="name">tochison<span className="cursor blink">_</span></h1>
               <p className="thesis">
-                founder of wetinnext. fullstack engineer in lagos.{" "}
-                <b>tap the button and watch your request go through everything i build.</b>
+                software engineer in lagos, founder of wetinnext. frontend, backend, product: i take ideas all the way
+                to people&apos;s hands. <b>tap the button and follow your request through everything i build.</b>
               </p>
               <p className="hint label">or just scroll ↓</p>
             </div>
@@ -173,7 +174,7 @@ export default function Journey() {
                 </div>
                 <p className="label">tonight · lagos · open to hirers</p>
                 <p className="ev-title">tochison_: open for work</p>
-                <p className="ev-meta">fullstack · founder. one engineer, the whole stack.</p>
+                <p className="ev-meta">frontend · backend · product. one engineer, the whole stack.</p>
                 <button className="ticket-btn" type="button" data-state={ticket} onClick={getTicket}>
                   <span className="dot" />
                   <span>{ticket === "idle" ? "get ticket" : ticket === "sending" ? "sending request" : "ticket ready ✓"}</span>
@@ -211,6 +212,7 @@ export default function Journey() {
 
         <Response onPrinted={onPrinted} />
         <Founder />
+        <Skills />
         <Quests />
         <OffClock />
 
